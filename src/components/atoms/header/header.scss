@@ -1,0 +1,63 @@
+@import '../../../assets/scssGlobal/themes.scss';
+@import '../../../assets/scssGlobal/variables/colors.scss';
+@import '../../../assets/scssGlobal/variables/breakpoints.scss';
+
+.nav {
+    background: var(--color-sass--primary);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .main-title {
+        flex-direction: row;
+        align-items: center;
+        padding-left: 2%;
+
+        h1, h2 {
+            font-size: 1.7rem;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-left: 5px;
+        }
+    }
+
+    nav {
+        margin-right: 2%;
+        min-width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+        flex-direction: row;
+
+        .nav-button{
+            text-decoration: none;
+            margin: 0 15px 0 15px;
+        }
+
+        ul {
+            margin-right: 2%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        li {
+            list-style-type: none;
+            margin-right: inherit;
+        }
+
+        .alternative:hover {
+            background: var(--color-sass--background);
+            color: var(--color-sass--text);
+
+        }
+    }
+
+    
+}
+

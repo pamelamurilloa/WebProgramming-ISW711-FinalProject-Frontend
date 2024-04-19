@@ -1,0 +1,10 @@
+@import './variables/colors.scss';
+
+:root {
+    --color-sass--primary : #{$main-color};
+    --color-sass--secondary : #{$secondary-color};
+    --color-sass--terciary : #{$terciary-color};
+    
+    --color-sass--background : #{$main-background};
+    --color-sass--text : #{$main-text-color};
+}

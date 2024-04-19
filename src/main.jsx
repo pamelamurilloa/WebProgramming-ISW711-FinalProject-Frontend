@@ -1,19 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import Root from './routes/root';
+import Contact from "./routes/contact";
 import {
   createBrowserRouter,
+  createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
+
 import './index.css';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-  },
-]);
+// Configure nested routes with JSX
+createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Root />}>
+      <Route path="contact" element={<Contact />} />
+      {/* <Route
+        path="dashboard"
+        element={<Dashboard />}
+        loader={({ request }) =>
+          fetch("/api/dashboard.json", {
+            signal: request.signal,
+          })
+        }
+      />
+      <Route element={<AuthLayout />}>
+        <Route
+          path="login"
+          element={<Login />}
+          loader={redirectIfUser}
+        />
+        <Route path="logout" action={logoutUser} />
+      </Route> */}
+    </Route>
+  )
+);
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
