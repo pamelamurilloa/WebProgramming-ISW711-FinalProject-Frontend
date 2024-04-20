@@ -1,6 +1,6 @@
-@import '../../../assets/scssGlobal/themes.scss';
-@import '../../../assets/scssGlobal/variables/colors.scss';
-@import '../../../assets/scssGlobal/variables/breakpoints.scss';
+@import '../../scssGlobal/themes.scss';
+@import '../../scssGlobal/variables/colors.scss';
+@import '../../scssGlobal/variables/breakpoints.scss';
 
 #background-band {
     margin: 5%;
@@ -26,7 +26,7 @@
     position: absolute;
     width: 40rem;
     align-items: center;
-    margin-top: -60vh;
+    margin-top: -5vh;
 
     .main-button {
         max-width: 50%;
