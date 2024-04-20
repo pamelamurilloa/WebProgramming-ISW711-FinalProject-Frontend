@@ -1,19 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Contact from "./routes/contact";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
+  Route,
+  Navigate,
 } from "react-router-dom";
 
-import './index.css';
+import './components/scssGlobal/all.scss'
+import MainLayout from './components/layouts/MainLayout/MainLayout'
+import LoginForm from './components/organisms/LoginForm/LoginForm'
+import RegisterForm from './components/organisms/RegisterForm/RegisterForm'
 
 // Configure nested routes with JSX
-createBrowserRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Root />}>
-      <Route path="contact" element={<Contact />} />
+    <Route path="/" element={<MainLayout />}>
+      <Route path="/" element={<Navigate replace to ="/login"/>}/>
+      <Route path="login" element={<LoginForm />}/>
+      <Route path="register" element={<RegisterForm />}/>
+      {/* <Route path="contact" element={<Contact />} /> */}
       {/* <Route
         path="dashboard"
         element={<Dashboard />}
