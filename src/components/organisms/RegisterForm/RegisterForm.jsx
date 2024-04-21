@@ -1,25 +1,72 @@
 import {Link} from 'react-router-dom'
-import React from 'react'
+import Input from '../../atoms/Input/Input'
+import React, {useState} from 'react'
 import FrontPage from '../../layouts/FrontPage/FrontPage'
 
 const RegisterForm = () => {
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [repPassword, setRepPassword] = useState('')
+    const [pin, setPin] = useState('')
+    const [name, setName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [birthday, setBirthday] = useState('')
+    const [country, setCountry] = useState('')
+
   return (
     <FrontPage>
 
         <h2 id="front-page">Register</h2>
         <form id="register-form">
             <div id="login-info">
-                <input className="input-form" type="email" id="email" name="email" placeholder="email" required/>
-                <input className="input-form password" type="password" id="password" name="password" placeholder="password" required/>
-                <input className="input-form password" type="password" id="rep_password" name="rep_password" placeholder="repeat password" required/>
-                <input className="input-form password" type="text" maxlength="6" minlength="6" id="pin" name="pin" placeholder="pin" required/>
+                <Input 
+                    type="email" id="email" placeholder="email" required 
+                    value={email} 
+                    onChange={setEmail}
+                />
+                <Input
+                    className="password"
+                    type="password" id="password" placeholder="password" required 
+                    value={password} 
+                    onChange={setPassword}
+                />
+                <Input
+                    className="password"
+                    type="password" id="repPassword" placeholder="repeat password" required 
+                    value={repPassword} 
+                    onChange={setRepPassword}
+                />
+                <Input
+                    className="password"
+                    id="pin" placeholder="pin" required
+                    maxLength="6" minLength="6"
+                    value={pin} 
+                    onChange={setPin}
+                />
+
             </div>
             <div id="personal-information">
-                <input className="input-form" type="text" id="name" name="name" placeholder="name" required/>
-                <input className="input-form" type="text" id="last_name" name="last_name" placeholder="last name" required/>
-                <input className="input-form" type="date" id="birthdate" name="birthdate" required/>
-                <input className="input-form" type="string" id="country" name="country" placeholder="country"/>
-
+                <Input
+                    id="name" placeholder="name" required 
+                    value={name} 
+                    onChange={setName}
+                />
+                <Input
+                    id="lastName" placeholder="last name" required 
+                    value={lastName} 
+                    onChange={setLastName}
+                />
+                <Input
+                    type="date" id="birthday"required 
+                    value={birthday} 
+                    onChange={setBirthday}
+                />
+                <Input
+                    id="country" placeholder="country" required                
+                    value={country} 
+                    onChange={setCountry}
+                />
             </div>
             <input className="main-button" type="submit" value="Confirm"/>
             <Link className="main-button" to="/login">Go Back</Link>
