@@ -8,6 +8,7 @@ import {
   Navigate,
 } from "react-router-dom";
 
+import { AuthProvider } from './contexts/authContext';
 import './components/scssGlobal/all.scss'
 import MainLayout from './components/layouts/MainLayout/MainLayout'
 import LoginForm from './components/organisms/LoginForm/LoginForm'
@@ -45,6 +46,6 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
   </React.StrictMode>,
 )

@@ -1,17 +1,24 @@
 import {Link} from 'react-router-dom'
 import Input from '../../atoms/Input/Input'
 import Submit from '../../atoms/Submit/Submit'
+import { useAuth } from '../../../contexts/authContext'
 import React, {useState} from 'react'
 import FrontPage from '../../layouts/FrontPage/FrontPage'
 
 const LoginForm = () => {
 
+    const {user, setUser} = useAuth();
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    
     const handleLogin = (event) => {
         event.preventDefault()
+        setUser({name:'Pam', lastName:'Murillo'});
         console.log(`You've logged in with email: ${email}, password: ${password}`)
+        //message with backend
     }
+
 
     return (
         <FrontPage>
