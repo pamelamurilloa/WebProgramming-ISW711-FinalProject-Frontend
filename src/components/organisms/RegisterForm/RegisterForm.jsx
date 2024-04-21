@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom'
 import Input from '../../atoms/Input/Input'
+import Submit from '../../atoms/Submit/Submit'
 import React, {useState} from 'react'
 import FrontPage from '../../layouts/FrontPage/FrontPage'
 
@@ -14,11 +15,14 @@ const RegisterForm = () => {
     const [birthday, setBirthday] = useState('')
     const [country, setCountry] = useState('')
 
+    const handleRegister = () => {
+        console.log(":D");
+    }
+
   return (
     <FrontPage>
-
         <h2 id="front-page">Register</h2>
-        <form id="register-form">
+        <form id="register-form" onSubmit={handleRegister}>
             <div id="login-info">
                 <Input 
                     type="email" id="email" placeholder="email" required 
@@ -68,7 +72,7 @@ const RegisterForm = () => {
                     onChange={setCountry}
                 />
             </div>
-            <input className="main-button" type="submit" value="Confirm"/>
+            <Submit />
             <Link className="main-button" to="/login">Go Back</Link>
         </form>
     </FrontPage>
