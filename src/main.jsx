@@ -13,6 +13,7 @@ import './components/scssGlobal/all.scss'
 import MainLayout from './components/layouts/MainLayout/MainLayout'
 import LoginForm from './components/organisms/LoginForm/LoginForm'
 import RegisterForm from './components/organisms/RegisterForm/RegisterForm'
+import VideoFeed from './components/organisms/VideoFeed/VideoFeed';
 
 // Configure nested routes with JSX
 const router = createBrowserRouter(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Navigate replace to ="/login"/>}/>
       <Route path="login" element={<LoginForm />}/>
       <Route path="register" element={<RegisterForm />}/>
+      <Route path="avatar" element={<VideoFeed />}/>
       {/* <Route path="contact" element={<Contact />} /> */}
       {/* <Route
         path="dashboard"

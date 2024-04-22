@@ -1,9 +1,28 @@
-import { createContext, useContext, useState} from "react"
+import { createContext, useContext, useState, useEffect} from "react"
 
 const AuthContext = createContext()
 
 export const AuthProvider = (props) => {
     const [user, setUser] = useState(null)
+    useEffect(
+        () => {
+            if (user) {
+                localStorage.setItem('user', JSON.stringify(user));
+            } else {
+                localStorage.removeItem('user');
+            }
+        },
+        [user]
+    )
+    useEffect(
+        () => {
+            const userData = localStorage.getItem('user')
+            if (userData) {
+                setUser(JSON.parse(userData))
+            }
+        },
+        []
+    )
     return <AuthContext.Provider value={{user, setUser}} {...props}/>
 }
 
