@@ -1,9 +1,12 @@
 import {Link} from 'react-router-dom'
+import React, {useState} from 'react'
+
+// Local imports
 import Input from '../../atoms/Input/Input'
 import Submit from '../../atoms/Submit/Submit'
-import { useAuth } from '../../../contexts/authContext'
-import React, {useState} from 'react'
 import FrontPage from '../../layouts/FrontPage/FrontPage'
+import { useAuth } from '../../../contexts/authContext'
+
 
 const LoginForm = () => {
 
@@ -18,7 +21,6 @@ const LoginForm = () => {
         console.log(`You've logged in with email: ${email}, password: ${password}`)
         //message with backend
     }
-
 
     return (
         <FrontPage>
