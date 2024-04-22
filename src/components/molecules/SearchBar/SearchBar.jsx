@@ -6,6 +6,7 @@ import { IoSearchSharp } from "react-icons/io5";
 const SearchBar = ({onSearch}) => {
 
     const [query, setQuery] = useState('')
+    
     const handleClick = () => {
         onSearch(query);
     }
