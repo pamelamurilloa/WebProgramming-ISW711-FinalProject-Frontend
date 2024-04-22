@@ -11,7 +11,7 @@ const PrivateLayout = () => {
 
   useEffect(
     () => {
-      if(user) {
+      if(!user) {
         navigate("/");
       }
     },
