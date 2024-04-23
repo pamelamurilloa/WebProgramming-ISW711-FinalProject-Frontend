@@ -66,12 +66,11 @@ const VideoFeed = () => {
                             <div className='video-card'>
                                 <h3>${video.name}</h3>
                                 <iframe 
-                                    src="${getEmbedUrl(video.url)}?rel=0&modestbranding=1&loop=1"
+                                    src={`${getEmbedUrl(video.url)}?rel=0&modestbranding=1&loop=1`}
                                     title="${video.name}"
                                     frameborder="0"
                                     allow="accelerometer; encrypted-media; gyroscope"
                                     allowfullscreen>
-                    
                                 </iframe>
                             </div>
                         })
