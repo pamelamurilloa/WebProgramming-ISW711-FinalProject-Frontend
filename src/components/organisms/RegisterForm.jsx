@@ -13,7 +13,7 @@ const RegisterForm = () => {
     const [name, setName] = useState('')
     const [lastName, setLastName] = useState('')
     const [birthday, setBirthday] = useState('')
-    const [country, setCountry] = useState('')
+    const [cellphone, setCellphone] = useState('')
 
     const handleRegister = () => {
         console.log(":D");
@@ -67,9 +67,10 @@ const RegisterForm = () => {
                     onChange={setBirthday}
                 />
                 <Input
-                    id="country" placeholder="country" required                
-                    value={country} 
-                    onChange={setCountry}
+                    pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+                    id="cellphone" type="tel" placeholder="cellphone" required                
+                    value={cellphone} 
+                    onChange={setCellphone}
                 />
             </div>
             <Submit />
