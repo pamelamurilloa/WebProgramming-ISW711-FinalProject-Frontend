@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {restUrl} from '../constants'
+import {restUrl} from '../../constants'
 
 export const useSession = () => {
     const [loading, setLoading] = useState('')
