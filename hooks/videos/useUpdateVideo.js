@@ -1,25 +1,26 @@
 import {restUrl} from '../../constants'
 
-export const useDeleteKid = () => {
+export const useUpdateVideo = () => {
     const [loading, setLoading] = useState('')
     const [data, setData] = useState('')
     const [isError, setIsError] = useState('')
 
-    const deleteKid = async (kidId) => {
+    const updateVideo = async (playlistId, video) => {
         setLoading(true)
 
         const res = await fetch(
-            restUrl + `/kids/${kidId}`, 
+            restUrl + `/playlists/${playlistId}/${video._id}`, 
             {
-                method: 'DELETE',
+                method: 'PATCH',
+                body: video
             }
         )
 
         setLoading(false)
     
         if (res.status === 200) {
-            const kidDeleted = await res.json()
-            setData(kidDeleted)
+            const videoUpdated = await res.json()
+            setData(videoUpdated)
             
         } else {
             setIsError(true);
@@ -27,5 +28,5 @@ export const useDeleteKid = () => {
         
     }
 
-    return {loading, data, isError, deleteKid}
+    return {loading, data, isError, updateVideo}
 }

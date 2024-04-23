@@ -1,4 +1,4 @@
-import {baseUrl} from '../../constants'
+import {restUrl} from '../../constants'
 
 export const useCreateKid = () => {
     const [loading, setLoading] = useState('')
@@ -9,7 +9,7 @@ export const useCreateKid = () => {
         setLoading(true)
 
         const res = await fetch(
-            baseUrl + "/kids", 
+            restUrl + "/kids", 
             {
                 method: 'POST',
                 body: kid

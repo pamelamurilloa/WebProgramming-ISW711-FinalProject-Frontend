@@ -1,25 +1,26 @@
 import {restUrl} from '../../constants'
 
-export const useDeleteKid = () => {
+export const useUpdatePlaylist = () => {
     const [loading, setLoading] = useState('')
     const [data, setData] = useState('')
     const [isError, setIsError] = useState('')
 
-    const deleteKid = async (kidId) => {
+    const updatePlaylist = async (playlist) => {
         setLoading(true)
 
         const res = await fetch(
-            restUrl + `/kids/${kidId}`, 
+            restUrl + `/playlists/${playlist._id}`, 
             {
-                method: 'DELETE',
+                method: 'PATCH',
+                body: playlist
             }
         )
 
         setLoading(false)
     
         if (res.status === 200) {
-            const kidDeleted = await res.json()
-            setData(kidDeleted)
+            const playlistUpdated = await res.json()
+            setData(playlistUpdated)
             
         } else {
             setIsError(true);
@@ -27,5 +28,5 @@ export const useDeleteKid = () => {
         
     }
 
-    return {loading, data, isError, deleteKid}
+    return {loading, data, isError, updatePlaylist}
 }
