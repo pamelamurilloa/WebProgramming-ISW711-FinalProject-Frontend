@@ -7,7 +7,6 @@ const Administration = () => {
     <PrivateLayout>
         <KidCRUD />
         <PlaylistCRUD />
-        <VideoCRUD />
     </PrivateLayout>
   )
 }
