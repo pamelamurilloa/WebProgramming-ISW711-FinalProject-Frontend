@@ -36,7 +36,9 @@ const VideoCRUD = () => {
 
   useEffect(
     () => {
-      readVideos(selectedPlaylist)
+      if (selectedPlaylist) {
+        readVideos(selectedPlaylist)
+      }
     },
     [selectedPlaylist]
   )
@@ -84,7 +86,7 @@ const VideoCRUD = () => {
         <label for="playlist">Select Playlist:</label>
         <select className="input-form" id="playlist" name="playlist" onChange={handlePlaylistChange}>
           {
-            dataReadPlaylists.map((playlist) => (
+            dataReadPlaylists?.map((playlist) => (
               <option key={playlist._id} value={playlist._id} >
                 {playlist.name}
               </option>
@@ -106,7 +108,7 @@ const VideoCRUD = () => {
           <tbody id="video-table">
             {
               dataReadVideos?.map((video) => {
-                <tr>
+                <tr key={video._id}>
                   <td>{video.name}</td>
                   <td>{video.url}</td>
                   <td>

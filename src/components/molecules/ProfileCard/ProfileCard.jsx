@@ -4,15 +4,31 @@ import { FaEdit } from "react-icons/fa";
 
 const ProfileCard = ({editProfile, deleteProfile, askForEntry, profile}) => {
 
+    const handleImageClick = () => {
+        if(askForEntry) {
+            askForEntry(profile)
+        } else {
+            editProfile(profile)
+        }
+    }
+
     return (
         <div className="profile" id={profile._id}>         
-            <img src={process.env.PUBLIC_URL + `/profilePictures/profile${profile.avatar}.png`} alt="Profile Avatar" onClick={() => askForEntry(profile)}/>
+            <img
+                src={process.env.PUBLIC_URL + `/profilePictures/profile${profile.avatar}.png`}
+                alt="Profile Avatar"
+                onClick={handleImageClick}
+            />
             <div class="under-image">
                 <h3 class="profile-name">{profile.name}</h3>
-                <div class="profile-actions">
-                    <Button icon={<FaEdit  />} onClick={() => editProfile(profile)}>Edit</Button>
-                    <Button icon={<MdDeleteForever />} onClick={() => deleteProfile(profile._id)}>Delete</Button>
-                </div>
+                {
+                    editProfile && deleteProfile &&
+
+                    <div class="profile-actions">
+                        <Button icon={<FaEdit  />} onClick={() => editProfile(profile)}>Edit</Button>
+                        <Button icon={<MdDeleteForever />} onClick={() => deleteProfile(profile._id)}>Delete</Button>
+                    </div>
+                }
             </div>
         </div>
     )
