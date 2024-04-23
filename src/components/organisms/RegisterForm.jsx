@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 import Input from '../atoms/Input'
 import Submit from '../atoms/Submit'
 import React, {useState} from 'react'
-import FrontPage from '../layouts/FrontPage/FrontPage'
+import FrontPageLayout from '../layouts/FrontPage/FrontPage'
 
 const RegisterForm = () => {
 
@@ -20,7 +20,7 @@ const RegisterForm = () => {
     }
 
   return (
-    <FrontPage>
+    <FrontPageLayout>
         <h2 id="front-page">Register</h2>
         <form id="register-form" onSubmit={handleRegister}>
             <div id="login-info">
@@ -75,7 +75,7 @@ const RegisterForm = () => {
             <Submit />
             <Link className="main-button" to="/login">Go Back</Link>
         </form>
-    </FrontPage>
+    </FrontPageLayout>
   )
 }
 
