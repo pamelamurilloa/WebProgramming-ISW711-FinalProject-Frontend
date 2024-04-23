@@ -18,7 +18,7 @@ const VideoCRUD = () => {
 
 
   const [selectedPlaylist, setSelectedPlaylist] = useState('')
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState('Create video')
 
   const {loading:loadingDelete, data:dataDelete, isError:isErrorDelete, deleteVideo} = useDeleteVideo();
   const {loading:loadingCreate, data:dataCreate, isError:isErrorCreate, createVideo} = useCreateVideo();
