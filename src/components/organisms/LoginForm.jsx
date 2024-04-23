@@ -7,11 +7,14 @@ import Submit from '../atoms/Submit'
 import FrontPageLayout from '../layouts/FrontPageLayout/FrontPageLayout'
 import { useAuth } from '../../contexts/authContext'
 import { useSession } from '../../../hooks/users/useSession'
+import { useCode} from '../../../hooks/users/useCode'
 
 const LoginForm = () => {
 
-    const {user, setUser} = useAuth()
-    const {loading, data, isError, login} = useSession()
+    const {setUser} = useAuth()
+    const {loading, data: loggedUser, isError, login} = useSession()
+    const {loading:loadingCode, data: dataCode, isError: isErrorCode, verifyCode} = useCode()
+
 
     const [code, setCode] = useState('')
     const [isCodeSent, setIsCodeSent] = useState('')
@@ -21,11 +24,20 @@ const LoginForm = () => {
 
     useEffect(
         () => {
-            if (data) {
-                setUser(user);
+            if (loggedUser) {
+                setIsCodeSent(true)
             }
         },
-        [data]
+        [loggedUser]
+    )
+
+    useEffect(
+        () => {
+            if (dataCode) {
+                setIsCodeSent(false)
+            }
+        },
+        [dataCode]
     )
     
     const handleLogin = (event) => {
@@ -33,14 +45,15 @@ const LoginForm = () => {
 
         login(email, password)
 
-
-        setUser({name:'Pam', lastName:'Murillo'});
-        console.log(`You've logged in with email: ${email}, password: ${password}`)
-        //message with backend
     }
 
     const handleCodeSent = (event) => {
         event.preventDefault()
+
+        if(!isNaN(code)) {
+            verifyCode(loggedUser._id, code)
+
+        }
     }
 
     return (
@@ -64,6 +77,7 @@ const LoginForm = () => {
             </form>
 
             {
+                setIsCodeSent &&
                 <PopUp>
                     <h3>Enter the code sent to your cellphone</h3>
                     <form id="login-form" onSubmit={handleCodeSent}>
@@ -73,8 +87,12 @@ const LoginForm = () => {
                             value={code} 
                             onChange={setCode}
                         />
-                        <Submit/>
+                        {loadingCode ? "Loading..." : <Submit />}
                     </form>
+                    {
+                        isErrorCode && 
+                        <span>"Invalid code..."</span>
+                    }
                 </PopUp>
             }
         </FrontPageLayout>

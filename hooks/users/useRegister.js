@@ -8,6 +8,7 @@ export const useSession = () => {
 
     const login = async (email, password) => {
         setLoading(true)
+        setIsError(false)
 
         const res = await fetch(
             restUrl + "/users/", 
