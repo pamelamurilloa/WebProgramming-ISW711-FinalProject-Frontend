@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react'
 // Local imports
 import Input from '../atoms/Input'
 import Submit from '../atoms/Submit'
-import FrontPage from '../layouts/FrontPage/FrontPage'
+import FrontPageLayout from '../layouts/FrontPageLayout/FrontPageLayout'
 import { useAuth } from '../../contexts/authContext'
 import { useSession } from '../../../hooks/useSession'
 
@@ -37,7 +37,7 @@ const LoginForm = () => {
     }
 
     return (
-        <FrontPage>
+        <FrontPageLayout>
             <h2 id="front-page">Login</h2>
             <form id="login-form" onSubmit={handleLogin}>
                 <Input 
@@ -55,7 +55,7 @@ const LoginForm = () => {
                 {loading ? "Loading..." : <Submit />}
                 <Link className="main-button" to="/register">Register</Link>
             </form>
-        </FrontPage>
+        </FrontPageLayout>
     )
 }
 
