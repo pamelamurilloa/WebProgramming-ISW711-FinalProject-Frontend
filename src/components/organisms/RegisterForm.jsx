@@ -1,8 +1,8 @@
 import {Link} from 'react-router-dom'
-import Input from '../../atoms/Input/Input'
-import Submit from '../../atoms/Submit/Submit'
+import Input from '../atoms/Input'
+import Submit from '../atoms/Submit'
 import React, {useState} from 'react'
-import FrontPage from '../../layouts/FrontPage/FrontPage'
+import FrontPage from '../layouts/FrontPage/FrontPage'
 
 const RegisterForm = () => {
 

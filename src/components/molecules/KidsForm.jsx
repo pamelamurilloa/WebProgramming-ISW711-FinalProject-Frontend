@@ -1,15 +1,19 @@
 import React, {useState} from 'react'
 
-const KidsForm = () => {
+const KidsForm = ({kid, onSave}) => {
 
-    const [pin, setPin] = useState('')
-    const [name, setName] = useState('')
-    const [age, setAge] = useState('')
+    const [pin, setPin] = useState(kid?.pin)
+    const [name, setName] = useState(kid?.name)
+    const [age, setAge] = useState(kid?.age)
+
+    const handleSubmit = () => {
+        onSave({pin, name, age, _id: kid._id})
+    }
 
     return (
         <>
             <h2 id="kid-form-title">Register a child</h2>
-            <form id="submit-kid-changes">
+            <form id="submit-kid-changes" onSubmit={handleSubmit}>
                 <Input
                     id="name" placeholder="Name" required                
                     value={name} 
@@ -33,14 +37,7 @@ const KidsForm = () => {
                     <a id="nextImage">▶</a>
                 </div>
 
-                <Input
-                    id="kidId" type="hidden"                
-                    value={kidId} 
-                    onChange={setKidId}
-                />
-
                 <Submit id="submit-pin"/>
-                {/* <input id="submit-pin" className="main-button" type="submit" value="Confirm"> */}
                 <Button>Go Back</Button>
             </form>
         </>

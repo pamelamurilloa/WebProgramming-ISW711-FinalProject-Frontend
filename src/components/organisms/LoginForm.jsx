@@ -2,11 +2,11 @@ import {Link} from 'react-router-dom'
 import React, {useEffect, useState} from 'react'
 
 // Local imports
-import Input from '../../atoms/Input/Input'
-import Submit from '../../atoms/Submit/Submit'
-import FrontPage from '../../layouts/FrontPage/FrontPage'
-import { useAuth } from '../../../contexts/authContext'
-import { useSession } from '../../../../hooks/useSession'
+import Input from '../atoms/Input'
+import Submit from '../atoms/Submit'
+import FrontPage from '../layouts/FrontPage/FrontPage'
+import { useAuth } from '../../contexts/authContext'
+import { useSession } from '../../../hooks/useSession'
 
 const LoginForm = () => {
 

@@ -1,1 +1,1 @@
-const sessionUrl = "http://localhost:3000/rest/session";
+const restUrl = "http://localhost:3000/rest";

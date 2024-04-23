@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import {sessionUrl} from '../constants'
+import {restUrl} from '../constants'
 
-const useSession = () => {
+export const useSession = () => {
     const [loading, setLoading] = useState('')
     const [data, setData] = useState('')
     const [isError, setIsError] = useState('')
@@ -10,7 +10,7 @@ const useSession = () => {
         setLoading(true)
 
         const res = await fetch(
-            sessionUrl + "/login", 
+            restUrl + "/session/login", 
             {
                 method: 'POST',
                 body: {email, password}

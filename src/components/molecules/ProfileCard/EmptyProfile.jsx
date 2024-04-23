@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoMdAddCircle } from "react-icons/io";
 
-const EmptyProfile = ({addProfile, profile}) => {
+const EmptyProfile = ({addProfile}) => {
 
     return (
         <div className="profile">
