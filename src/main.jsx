@@ -10,10 +10,12 @@ import {
 
 import { AuthProvider } from './contexts/authContext';
 import './components/scssGlobal/all.scss'
-import MainLayout from './components/layouts/MainLayout/MainLayout'
-import LoginForm from './components/organisms/LoginForm/LoginForm'
-import RegisterForm from './components/organisms/RegisterForm/RegisterForm'
-import VideoFeed from './components/organisms/VideoFeed/VideoFeed';
+import MainLayout from './components/layouts/MainLayout'
+import LoginForm from './components/organisms/LoginForm'
+import RegisterForm from './components/organisms/RegisterForm'
+import VideoFeed from './components/organisms/VideoFeed';
+import AvatarEntry from './components/organisms/AvatarEntry';
+import Administration from './components/pages/Administration';
 
 // Configure nested routes with JSX
 const router = createBrowserRouter(
@@ -22,7 +24,10 @@ const router = createBrowserRouter(
       <Route path="/" element={<Navigate replace to ="/login"/>}/>
       <Route path="login" element={<LoginForm />}/>
       <Route path="register" element={<RegisterForm />}/>
-      <Route path="avatar" element={<VideoFeed />}/>
+      <Route path="avatar" element={<AvatarEntry />}/>
+      <Route path="videoFeed" element={<VideoFeed />}/>
+      <Route path="administration" element={<Administration />}/>
+
       {/* <Route path="contact" element={<Contact />} /> */}
       {/* <Route
         path="dashboard"
