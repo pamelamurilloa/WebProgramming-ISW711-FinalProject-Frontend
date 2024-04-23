@@ -6,7 +6,7 @@ export const useReadVideo = () => {
     const [data, setData] = useState('')
     const [isError, setIsError] = useState('')
 
-    const readVideos = async (playlistId) => {
+    const readVideos = async (playlistId, query) => {
         setLoading(true)
 
         const res = await fetch(
