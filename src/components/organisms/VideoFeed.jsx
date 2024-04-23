@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Local imports
-import PrivateLayout from '../layouts/PrivateLayout/PrivateLayout'
+import PrivateLayout from '../layouts/PrivateLayout'
 import useVideos from '../../../hooks/useVideos'
 import PlaylistButton from '../atoms/PlaylistButton'
 

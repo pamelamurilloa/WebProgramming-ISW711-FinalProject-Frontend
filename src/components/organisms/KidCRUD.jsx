@@ -17,24 +17,12 @@ const KidCRUD = () => {
 
     const {loading:loadingDelete, data:dataDelete, isError:isErrorDelete, deleteKid} = useDeleteKid();
     const {loading:loadingCreate, data:dataCreate, isError:isErrorCreate, createKid} = useCreateKid();
-    // const {loading, data, isError, login} = useSession();
-    // const {loading, data, isError, login} = useSession();
+    const {loading:loadingUpdate, data:dataUpdate, isError:isErrorUpdate, updateKid} = useUpdateKid();
+    const {loading:loadingRead, data:dataReadKids, isError:isErrorRead, readKids} = useReadKid();
 
     useEffect(
         () => {
-            getKids()
-        },
-        []
-    )
-
-    useEffect(
-        () => {
-            if (user) {
-                localStorage.setItem('user', JSON.stringify(user));
-            } else {
-                localStorage.removeItem('user');
-            }
-            return 
+            readKids()
         },
         []
     )
