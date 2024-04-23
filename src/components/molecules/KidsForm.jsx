@@ -37,7 +37,7 @@ const KidsForm = ({kid, onSave}) => {
                     <a id="nextImage">▶</a>
                 </div>
 
-                <Submit id="submit-pin"/>
+                <Submit/>
                 <Button>Go Back</Button>
             </form>
         </>

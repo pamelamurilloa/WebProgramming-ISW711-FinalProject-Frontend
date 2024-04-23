@@ -5,8 +5,7 @@ const EmptyProfile = ({addProfile}) => {
 
     return (
         <div className="profile">
-            {/* change src */}
-            <img src="../../../assets/profilePictures/placeholder.png" alt="Add Profile" onClick={addProfile}/>
+            <img src={process.env.PUBLIC_URL + `/profilePictures/placeholder.png`} alt="Add Profile" onClick={addProfile}/>
             <div class="under-image">
                 <div class="profile-actions">
                     <Button icon={<IoMdAddCircle />} onClick={addProfile}>Add</Button>
