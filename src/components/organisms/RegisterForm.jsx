@@ -1,8 +1,11 @@
-import {Link} from 'react-router-dom'
+import React, {useState} from 'react'
+import {Link, Navigate} from 'react-router-dom'
+
+// Local imports
 import Input from '../atoms/Input'
 import Submit from '../atoms/Submit'
-import React, {useState} from 'react'
-import FrontPageLayout from '../layouts/FrontPage/FrontPage'
+import FrontPageLayout from '../layouts/FrontPageLayout/FrontPageLayout'
+import { useRegister } from '../../../hooks/users/useRegister'
 
 const RegisterForm = () => {
 
@@ -14,9 +17,24 @@ const RegisterForm = () => {
     const [lastName, setLastName] = useState('')
     const [birthday, setBirthday] = useState('')
     const [cellphone, setCellphone] = useState('')
+    
+    const {loading, data, isError, register} = useRegister();
+
 
     const handleRegister = () => {
-        console.log(":D");
+        let today = new Date();
+        let date = new Date(birthday);
+        let age = today.getFullYear() - date.getFullYear();
+        let monthDiff = today.getMonth() - date.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < date.getDate())) {
+            age--;
+        }
+        if(email, password, repPassword, pin, name, lastName, birthday, cellphone && password === repPassword && !isNaN(pin) && age >= 18) {
+            register({email, password, repPassword, pin, name, lastName, birthday, cellphone})
+            if (data) {
+                <Navigate replace to ="/login"/>
+            }
+        }
     }
 
   return (
@@ -68,7 +86,7 @@ const RegisterForm = () => {
                 />
                 <Input
                     pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-                    id="cellphone" type="tel" placeholder="cellphone" required                
+                    id="cellphone" type="tel" placeholder="Country code and cellphone" required                
                     value={cellphone} 
                     onChange={setCellphone}
                 />

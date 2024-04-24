@@ -52,7 +52,6 @@ const LoginForm = () => {
 
         if(!isNaN(code)) {
             verifyCode(loggedUser._id, code)
-
         }
     }
 
