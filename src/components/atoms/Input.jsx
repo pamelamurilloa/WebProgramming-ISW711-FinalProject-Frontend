@@ -7,8 +7,8 @@ const Input = ({value, onChange, className, ...props} ) => {
         onChange(value)
     }
 
-    const {user, setUser} = useAuth()
-    console.log(user, setUser);
+    // const {user, setUser} = useAuth()
+    // console.log(user, setUser);
 
     return (
     <input 

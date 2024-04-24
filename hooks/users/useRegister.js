@@ -6,23 +6,26 @@ export const useRegister = () => {
     const [data, setData] = useState('')
     const [isError, setIsError] = useState('')
 
-    const register = async ({newUser}) => {
+    const register = async (newUser) => {
         setLoading(true)
         setIsError(false)
 
         const resUser = await fetch(
             restUrl + "/users/", 
             {
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 method: 'POST',
-                body: newUser
+                body: JSON.stringify({...newUser, cellphone: newUser.formatedCellphone})
             }
-        )
+        );
 
         setLoading(false)
     
-        if (resUser.status === 200) {
-            user = await resUser.json()
-            res = await fetch (
+        if (resUser.status === 201) {
+            const user = await resUser.json()
+            const res = await fetch (
                 restUrl + "/playlists/", 
                 {
                     headers: {

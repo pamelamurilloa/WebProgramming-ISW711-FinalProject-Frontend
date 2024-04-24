@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react'
 import Input from '../atoms/Input'
 import Submit from '../atoms/Submit'
 import FrontPageLayout from '../layouts/FrontPageLayout/FrontPageLayout'
+import PopUp from '../molecules/PopUp'
 import { useAuth } from '../../contexts/authContext'
 import { useSession } from '../../../hooks/users/useSession'
 import { useCode} from '../../../hooks/users/useCode'
@@ -79,7 +80,7 @@ const LoginForm = () => {
                 setIsCodeSent &&
                 <PopUp>
                     <h3>Enter the code sent to your cellphone</h3>
-                    <form id="login-form" onSubmit={handleCodeSent}>
+                    <form id="code-form" onSubmit={handleCodeSent}>
                         <Input
                             id="code" placeholder="Your code" required
                             maxLength="5" minLength="5"
