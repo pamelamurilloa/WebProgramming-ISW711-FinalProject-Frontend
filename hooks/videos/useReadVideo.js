@@ -1,5 +1,5 @@
-import {restUrl} from '../../constants'
-import {graphqlUrl} from '../../constants'
+const restUrl = require('../../constants')
+const graphqlUrl = require('../../constants')
 
 export const useReadVideo = () => {
     const [loading, setLoading] = useState('')

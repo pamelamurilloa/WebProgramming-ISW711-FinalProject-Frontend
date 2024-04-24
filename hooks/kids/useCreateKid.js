@@ -1,4 +1,4 @@
-import {restUrl} from '../../constants'
+const restUrl = require('../../constants')
 
 export const useCreateKid = () => {
     const [loading, setLoading] = useState('')

@@ -1,4 +1,4 @@
-import {restUrl} from '../../constants'
+const restUrl = require('../../constants')
 
 export const useDeleteVideo = () => {
     const [loading, setLoading] = useState('')

@@ -2,7 +2,6 @@ import React from 'react'
 
 // Local imports
 import PrivateLayout from '../layouts/PrivateLayout'
-import useVideos from '../../../hooks/useVideos'
 import PlaylistButton from '../atoms/PlaylistButton'
 import { useReadVideo } from '../../../hooks/videos/useReadVideo'
 import { useReadPlaylist } from '../../../hooks/playlists/useReadPlaylist'

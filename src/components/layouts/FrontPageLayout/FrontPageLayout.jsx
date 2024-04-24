@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contexts/authContext';
-import './FrontPage.scss';
+import './FrontPageLayout.scss';
 
 function FrontPage({ children }) {
 

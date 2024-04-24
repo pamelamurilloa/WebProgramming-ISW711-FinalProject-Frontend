@@ -1,5 +1,4 @@
-import {restUrl} from '../../constants'
-import {graphqlUrl} from '../../constants'
+import {restUrl, graphqlUrl} from '../../constants'
 
 export const useReadPlaylist = () => {
     const [loading, setLoading] = useState('')
