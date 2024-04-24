@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {restUrl} from '../../constants'
+import {postApi} from '../../src/api'
 
 export const useRegister = () => {
     const [loading, setLoading] = useState('')
@@ -10,40 +11,19 @@ export const useRegister = () => {
         setLoading(true)
         setIsError(false)
 
-        const resUser = await fetch(
-            restUrl + "/users/", 
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                method: 'POST',
-                body: JSON.stringify({...newUser, cellphone: newUser.formatedCellphone})
-            }
-        );
+        try {
 
-        setLoading(false)
-    
-        if (resUser.status === 201) {
-            const user = await resUser.json()
-            const res = await fetch (
-                restUrl + "/playlists/", 
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    method: 'POST',
-                    body: JSON.stringify({name: "General", userId: user._id})
-                }
-            );
+            const user = await postApi('/users', {...newUser, cellphone: newUser.formatedCellphone});
 
+            setLoading(false)
 
+            const playlist = await postApi('/playlists', {name: "General", userId: user._id});
+        
             setData(user)
             
-        } else {
+        } catch {
             setIsError(true);
         }
-
-        
     }
 
     return {loading, data, isError, register}
