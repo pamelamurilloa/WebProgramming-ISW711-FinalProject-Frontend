@@ -36,6 +36,7 @@ export const useRegister = () => {
                 }
             );
 
+
             setData(user)
             
         } else {
