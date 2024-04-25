@@ -10,38 +10,62 @@ import { useReadPlaylist } from '@hooks/playlists/useReadPlaylist'
 import { useKidPinSession } from '@hooks/users/useKidPinSession'
 import './VideoFeed.scss'
 import '@components/scssGlobal/utils.scss'
+import { useAuth } from '@src/contexts/authContext'
 
 const VideoFeed = () => {
 
-    const {loading, data: user, isError} = useSession()
+    const {user} = useAuth()
+    const {logout} = useKidPinSession();
 
-    const [selectedPlaylist, setSelectedPlaylist] = useState('')
-
-    const {loading:loadingKid, data:kid, isError:isErrorKid, logout} = useKidPinSession();
+    const [kid, setKid] = useState(null) 
 
     const {loading:loadingReadVideo, data:dataReadVideos, isError:isErrorReadVideo, readVideos} = useReadVideo()
     const {loading:loadingReadPlaylist, data:dataReadPlaylists, isError:isErrorReadPlaylist, readPlaylists} = useReadPlaylist()
 
-    useEffect(
+    const [selectedPlaylistId, setSelectedPlaylistId] = useState('')
+
+    useEffect (
         () => {
             if (user) {
                 readPlaylists(user._id)
+            }  
+        },
+        [user]
+    )
+
+    useEffect(
+        () => {
+            const hasKid = localStorage.getItem('kid');
+            if (user) {
+                readPlaylists(user._id)
+            }
+            if (!kid ) {
+                setKid( JSON.parse(hasKid) )
             }
         },
         []
       )
+
+      useEffect(
+        () => {
+          if (dataReadPlaylists) {
+            setSelectedPlaylistId(dataReadPlaylists[0]?._id);
+          }
+        },
+        [dataReadPlaylists]
+      )
     
       useEffect(
         () => {
-          if (selectedPlaylist) {
-            readVideos(selectedPlaylist)
+          if (selectedPlaylistId) {
+            readVideos(selectedPlaylistId)
           }
         },
-        [selectedPlaylist]
+        [selectedPlaylistId]
       )
 
     const onSearch = (query) => {
-        readVideos(selectedPlaylist)
+        readVideos(selectedPlaylistId)
     }
 
     // Header and link manipulation
@@ -67,34 +91,61 @@ const VideoFeed = () => {
         }
     }
 
+    const handlePlaylistChange = ( {target: {value}} ) => {
+        setSelectedPlaylistId(value)
+      }
+
+      console.log('videos read data', dataReadVideos)
+
     return (
         <PrivateLayout headerLinks={headerLinks} onLinkClick={handleLinkClick}>
             <SearchBar className="little" onSearch={onSearch}/>
-            <div id='playlist-buttons' >
+            {/* <div id='playlist-buttons' >
                 <ul>
                     {
-                        dataReadPlaylists?.data?.map(playlist => {
+                        dataReadPlaylists?.map(playlist => {
                             <PlaylistButton selected={playlist.selected}>
                                 {`${playlist.name} ${playlist.number}`}
                             </PlaylistButton>
                         })
                     }
                 </ul>
-            </div>
+            </div> */}
+
+            <form className="dropdown">
+                <label htmlFor="playlist">Select Playlist:</label>
+                <select className="input-form" id="playlist" name="playlist" onChange={handlePlaylistChange}>
+                {
+                    kid &&
+                    dataReadPlaylists
+                        ?.filter(
+                            (playlist) => 
+                            playlist.kids.find(
+                                (item) => item._id === kid._id
+                            )
+                        )
+                        .map((playlist) => (
+                            <option key={playlist._id} value={playlist._id} >
+                                {playlist.name}
+                            </option>
+                        ))
+                }
+                </select>
+            </form>
+
             <div className="page-content">
                     {
-                        dataReadVideos?.data?.map(video => {
-                            <div className='video-card'>
-                                <h3>${video.name}</h3>
+                        dataReadVideos?.map(video => 
+                            <div className='video-card' key={video._url}>
+                                <h3>{video.name}</h3>
                                 <iframe 
                                     src={`${getEmbedUrl(video.url)}?rel=0&modestbranding=1&loop=1`}
-                                    title="${video.name}"
-                                    frameBorder="0"
+                                    title={video.name}
                                     allow="accelerometer; encrypted-media; gyroscope"
                                     allowFullScreen>
                                 </iframe>
                             </div>
-                        })
+                        )
                     }
             </div>
         </PrivateLayout>

@@ -18,9 +18,9 @@ export const useKidPinSession = () => {
 
         try {
             const kid = await postApi('/session/kids', {_id, pin})
-            localStorage.setItem('kid', 'true')
+            localStorage.setItem('kid', JSON.stringify(kid))
             setData(kid)
-            
+
         } catch (err) {
             console.error(err)
             setIsError(true)
