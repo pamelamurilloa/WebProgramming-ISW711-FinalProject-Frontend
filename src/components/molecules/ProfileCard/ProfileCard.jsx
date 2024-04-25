@@ -31,8 +31,8 @@ const ProfileCard = ({ profile, askForEntry = null, editProfile = null, deletePr
                     editProfile && deleteProfile &&
 
                     <div className="profile-actions">
-                        <Button icon={<FaEdit  />} onClick={() => editProfile(profile)}>Edit</Button>
-                        <Button icon={<MdDeleteForever />} onClick={() => deleteProfile(profile._id)}>Delete</Button>
+                        <Button className='little' icon={<FaEdit  />} onClick={() => editProfile(profile)}>Edit</Button>
+                        <Button className='little' icon={<MdDeleteForever />} onClick={() => deleteProfile(profile._id)}>Delete</Button>
                     </div>
                 }
             </div>

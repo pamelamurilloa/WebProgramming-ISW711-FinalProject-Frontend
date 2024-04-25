@@ -137,6 +137,7 @@ const PlaylistCRUD = () => {
   const handleClear = () => {
     setName('')
     setUrl('')
+    setDescription('')
     setMessage('Create video')
     setVideoToEdit(null)
   }
@@ -233,6 +234,7 @@ const PlaylistCRUD = () => {
               <Button 
                 icon={<FaEdit />}
                 onClick={startEditPlaylist}
+                className='little'
               >
                 Edit current Playlist
               </Button>
@@ -240,6 +242,7 @@ const PlaylistCRUD = () => {
               <Button 
                 icon={<MdDeleteForever />}
                 onClick={handlePlaylistDelete}
+                className='little'
               >
                 Delete current Playlist
               </Button>
@@ -248,6 +251,7 @@ const PlaylistCRUD = () => {
 
         <Button
           icon={<IoMdAddCircle />}
+          className='little'
           onClick={handlePlaylistAddition}
         >
             Add new Playlist
@@ -299,7 +303,7 @@ const PlaylistCRUD = () => {
         </table>
 
         <div className="crud-new">
-          <h2 id="video-form-title">Add new video</h2>
+          <h2 id="video-form-title">Video Manager</h2>
           <form action="" id="submit-video-changes" onSubmit={handleSaveVideo}>
             <Input
                 id="video-name" placeholder="Name of the video"

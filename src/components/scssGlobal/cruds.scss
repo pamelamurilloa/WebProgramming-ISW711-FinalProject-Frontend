@@ -140,6 +140,25 @@ iframe {
         max-width: 20px;
         border-radius: 0;
     }
+
+    .profile-actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.little {
+    margin: 2px;
+    padding: 0px 20px 0px 20px;
+}
+
+
+.playlist-crud {
+    display: flex;
+    width: 80%;
+    margin-bottom: 3%;
+    align-items: center;
 }
 
 .choosing {

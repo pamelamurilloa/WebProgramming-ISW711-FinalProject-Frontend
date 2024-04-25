@@ -41,7 +41,7 @@ const PlaylistForm = ({onSave, goBack, playlistToEdit = null}) => {
 
     return (
         <>
-            <h2 id="playlist-form-title">Create a new Playlist</h2>
+            <h2 id="playlist-form-title">Playlist Manager</h2>
             <form id="submit-playlist-changes" onSubmit={handleSubmit}>
                 <Input
                     id="name" placeholder="Name" required                
