@@ -36,6 +36,7 @@ const LoginForm = () => {
         () => {
             if (dataCode) {
                 setIsCodeSent(false)
+                setUser(loggedUser)
             }
         },
         [dataCode]
@@ -45,7 +46,6 @@ const LoginForm = () => {
         event.preventDefault()
 
         login(email, password)
-
     }
 
     const handleCodeSent = (event) => {
@@ -77,21 +77,23 @@ const LoginForm = () => {
             </form>
 
             {
-                setIsCodeSent &&
+                isCodeSent &&
                 <PopUp>
                     <h3>Enter the code sent to your cellphone</h3>
                     <form id="code-form" onSubmit={handleCodeSent}>
                         <Input
                             id="code" placeholder="Your code" required
-                            maxLength="5" minLength="5"
+                            maxLength="4" minLength="4"
                             value={code} 
                             onChange={setCode}
                         />
                         {loadingCode ? "Loading..." : <Submit />}
+                        <Button onClick={() => setIsCodeSent(false)}>Cancel</Button>
                     </form>
+                    
                     {
                         isErrorCode && 
-                        <span>"Invalid code..."</span>
+                        <span>"Invalid code"</span>
                     }
                 </PopUp>
             }

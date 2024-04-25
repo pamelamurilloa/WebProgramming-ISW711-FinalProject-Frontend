@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {restUrl} from '../../constants'
+import { postApi } from '../../src/api'
 
 export const useSession = () => {
     const [loading, setLoading] = useState('')
@@ -10,22 +11,14 @@ export const useSession = () => {
         setLoading(true)
         setIsError(false)
 
-        const res = await fetch(
-            restUrl + "/session/login", 
-            {
-                method: 'POST',
-                body: {email, password}
-            }
-        )
-
-        setLoading(false)
-    
-        if (res.status === 200) {
-            user = await res.json()
+        try {
+            const user = await postApi('/session/login', {email, password})
             setData(user)
             
-        } else {
+        } catch {
             setIsError(true);
+        } finally {
+            setLoading(false)
         }
         
     }

@@ -3,7 +3,7 @@ import {restUrl} from '../constants'
 const request = async (method, url, data) => {
 
     let params = {};
-    if ( ['POST', 'PUT'].includes(method) ) {
+    if ( ['POST', 'PUT', 'PATCH'].includes(method) ) {
         if (data) {
             params.body = JSON.stringify(data)
         }
@@ -29,5 +29,5 @@ const request = async (method, url, data) => {
 }
 
 const postApi = (...params) => request('POST', ...params)
-
+const patchApi = (...params) => request('PATCH', ...params)
 export {postApi}

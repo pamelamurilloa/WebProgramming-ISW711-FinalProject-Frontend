@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {restUrl} from '../../constants'
+import { postApi } from '../../src/api'
 
 export const useCode = () => {
     const [loading, setLoading] = useState('')
@@ -10,22 +11,16 @@ export const useCode = () => {
         setLoading(true)
         setIsError(false)
 
-        const res = await fetch(
-            restUrl + "/session/login/code", 
-            {
-                method: 'POST',
-                body: {userId, code}
-            }
-        )
+        try {
 
-        setLoading(false)
-    
-        if (res.status === 200) {
-            user = await res.json()
+            const user = await postApi('/session/login/code', {userId, code})
             setData(user)
             
-        } else {
+        } catch {
             setIsError(true);
+            
+        } finally {
+            setLoading(false)
         }
         
     }
