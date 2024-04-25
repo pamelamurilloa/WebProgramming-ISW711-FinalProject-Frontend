@@ -1,10 +1,16 @@
 import { useState } from 'react'
+import { Navigate, useNavigate} from 'react-router-dom';
+
+// Local imports
 import { postApi } from '../../src/api'
 
 export const useUserPinSession = () => {
-    const [loading, setLoading] = useState('')
-    const [data, setData] = useState('')
-    const [isError, setIsError] = useState('')
+
+    const navigate = useNavigate()
+
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState(null)
+    const [isError, setIsError] = useState(false)
 
     const login = async (userId, pin) => {
         setLoading(true)
@@ -12,10 +18,11 @@ export const useUserPinSession = () => {
 
         try {
             const user = await postApi('/session/login/pin', {userId, pin})
-            localStorage.addItem('admin')
+            localStorage.setItem('admin', 'true')
             setData(user)
             
-        } catch {
+        } catch (err) {
+            console.log(err)
             setIsError(true)
         } finally {
             setLoading(false)
@@ -24,7 +31,7 @@ export const useUserPinSession = () => {
     }
     
     const logout = async () => {
-        localStorage.remove('admin')
+        localStorage.removeItem('admin')
         navigate("/avatar");
     }
 

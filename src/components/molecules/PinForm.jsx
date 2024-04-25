@@ -4,13 +4,14 @@ import Submit from '../atoms/Submit'
 import Button from '../atoms/Button'
 
 
-const PinForm = ({onConfirm, children}) => {
+const PinForm = ({loginTry, children}) => {
 
     const [pin, setPin] = useState('')
 
-    const handleSubmit = () => {
-        if (!isNan(pin)) {
-            onConfirm(pin)
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (!isNaN( parseInt(pin) )) {
+            loginTry(pin)
         }
     }
 

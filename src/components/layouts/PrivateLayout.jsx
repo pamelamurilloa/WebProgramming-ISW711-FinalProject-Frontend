@@ -23,7 +23,7 @@ const PrivateLayout = ({children, headerLinks, onLinkClick}) => {
         <Header links={headerLinks} onLinkClick={(linkId) => onLinkClick(linkId)}/>
         {children}
     </>
-    ) : <Navigate to = "/"/>
+    ) : <Navigate to = "/" />
 }
 
 export default PrivateLayout

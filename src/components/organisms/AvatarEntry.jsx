@@ -58,9 +58,11 @@ const AvatarEntry = () => {
 
     useEffect(
         () => {
-            if (isAdmin) {
+            const admin = localStorage.getItem('admin')
+            const kid = localStorage.getItem('kid')
+            if (admin) {
                 navigate("/administration");
-            } else {
+            } else if (kid) {
                 navigate("/videoFeed");
             }
         },
@@ -84,8 +86,7 @@ const AvatarEntry = () => {
     const handleLinkClick = (linkId) => {
         if ( linkId === 1 ) {
             setIsAdmin(true)
-            const admin = user;
-            setProfileLogin(admin)
+            setProfileLogin(user)
         } else if ( linkId === 2 ) {
             logout();
         }
@@ -114,16 +115,18 @@ const AvatarEntry = () => {
                 { profileLogin &&
                     <PopUp>
                         <PinForm
-                            userId={profileLogin._id}
-                            loginTry ={(pin) => handleFurtherLogin(pin)}
+                            loginTry ={handleFurtherLogin}
                         >
                             <Button
                                 onClick={
                                     () => {
                                         setProfileLogin(null)
-                                        setIsAdmin(null)}
+                                        setIsAdmin(null)
                                     }
-                            />
+                                }
+                            >
+                                Cancel
+                            </Button>
                         </PinForm>
                     </PopUp>
                 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAuth } from '../../contexts/authContext'
 
-const Input = ({value, onChange, className, ...props} ) => {
+const Input = ({value, onChange, className = '', ...props} ) => {
 
     const handleChange = ({ target: { value}}) => {
         onChange(value)
