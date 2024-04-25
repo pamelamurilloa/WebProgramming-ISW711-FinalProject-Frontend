@@ -2,13 +2,22 @@ import React, { useEffect, useState } from 'react'
 
 import { MdDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+import { IoMdAddCircle } from "react-icons/io";
+
 
 // Local imports
+import Button from '../atoms/Button'
+import Submit from '../atoms/Submit'
+import Input from '../atoms/Input'
+import PopUp from '../molecules/PopUp'
+import PlaylistForm from '../molecules/PlaylistForm'
 import { useReadVideo } from '../../../hooks/videos/useReadVideo'
 import { useUpdateVideo } from '../../../hooks/videos/useUpdateVideo'
 import { useCreateVideo } from '../../../hooks/videos/useCreateVideo'
 import { useDeleteVideo } from '../../../hooks/videos/useDeleteVideo'
 import { useReadPlaylist } from '../../../hooks/playlists/useReadPlaylist'
+import { useSession } from '../../../hooks/users/useSession'
+
 
 const PlaylistCRUD = () => {
 
@@ -29,6 +38,7 @@ const PlaylistCRUD = () => {
   const {loading:loadingUpdate, data:dataUpdate, isError:isErrorUpdate, updateVideo} = useUpdateVideo();
   const {loading:loadingRead, data:dataReadVideos, isError:isErrorRead, readVideos} = useReadVideo();
 
+  
   const {loading:loadingReadPlaylist, data:dataReadPlaylists, isError:isErrorReadPlaylist, readPlaylists} = useReadPlaylist();
 
   useEffect(
@@ -78,7 +88,7 @@ const PlaylistCRUD = () => {
 
   const handlePlaylistDelete = () => {
     //Confirmation message
-    deletePlaylist(selectedPlaylistId);
+    //deletePlaylist(selectedPlaylistId);
   }
 
   const handleSavevideo = (video) => {
@@ -92,6 +102,10 @@ const PlaylistCRUD = () => {
         setVideoToEdit(null)
         handleClear()
     }
+  }
+
+  const handlePlaylistAddition = () => {
+
   }
 
   const handleOnSavePlaylist = (name, kids) => {
@@ -110,7 +124,7 @@ const PlaylistCRUD = () => {
     <section id="video-section">
       <h3>Playlists</h3>
       <form className="dropdown" onSubmit={handlePlaylistChange}>
-        <label for="playlist">Select Playlist:</label>
+        <label htmlFor="playlist">Select Playlist:</label>
         <select className="input-form" id="playlist" name="playlist" onChange={handlePlaylistChange}>
           {
             dataReadPlaylists?.map((playlist) => (

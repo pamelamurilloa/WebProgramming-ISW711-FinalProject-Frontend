@@ -2,9 +2,9 @@ import { useState } from 'react'
 import {postApi} from '../../src/api'
 
 export const useRegister = () => {
-    const [loading, setLoading] = useState('')
-    const [data, setData] = useState('')
-    const [isError, setIsError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState(null)
+    const [isError, setIsError] = useState(false)
 
     const register = async (newUser) => {
         setLoading(true)

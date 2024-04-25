@@ -3,9 +3,9 @@ import {useState} from 'react'
 import { postApi } from '../../src/api'
 
 export const useCreateVideo = () => {
-    const [loading, setLoading] = useState('')
-    const [data, setData] = useState('')
-    const [isError, setIsError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState(null)
+    const [isError, setIsError] = useState(false)
 
     const createVideo = async (playlistId, video) => {
         setLoading(true)

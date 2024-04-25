@@ -3,15 +3,15 @@ import { patchApi } from '../../src/api'
 import {useState} from 'react'
 
 export const useUpdatePlaylist = () => {
-    const [loading, setLoading] = useState('')
-    const [data, setData] = useState('')
-    const [isError, setIsError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState(null)
+    const [isError, setIsError] = useState(false)
 
     const updatePlaylist = async (playlist) => {
         setLoading(true)
 
         try {
-            const playlistUpdated = await postApi(`/playlists/${playlist._id}`, playlist)
+            const playlistUpdated = await patchApi(`/playlists/${playlist._id}`, playlist)
             setData(playlistUpdated)
             
         } catch {

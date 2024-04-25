@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Input from '../atoms/Input'
-import Button from '../atoms/Button'
+import Input from '@components/atoms/Input'
+import Button from '@components/atoms/Button'
 import { IoSearchSharp } from "react-icons/io5";
 
 
@@ -8,10 +8,6 @@ const SearchBar = ({onSearch}) => {
 
     const [query, setQuery] = useState('')
     
-    const handleClick = () => {
-        onSearch(query);
-    }
-
     return (
         <div>
             <label>Search</label>
@@ -21,7 +17,7 @@ const SearchBar = ({onSearch}) => {
                         value={query} 
                         onChange={setQuery}
                     />
-                <Button icon={<IoSearchSharp />} onClick={handleClick()}>Search</Button>
+                <Button icon={<IoSearchSharp />} onClick={() => onSearch(query)}>Search</Button>
             </div>
         </div>
     )

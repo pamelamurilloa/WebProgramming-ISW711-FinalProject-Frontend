@@ -4,9 +4,9 @@ import {useState} from 'react'
 const restUrl = require('../../constants')
 
 export const useCreatePlaylist = () => {
-    const [loading, setLoading] = useState('')
-    const [data, setData] = useState('')
-    const [isError, setIsError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState(null)
+    const [isError, setIsError] = useState(false)
 
     const createPlaylist = async (playlist) => {
         setLoading(true)

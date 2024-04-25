@@ -1,16 +1,16 @@
-import {restUrl} from '../../constants'
+import { patchApi } from '@src/api'
 import {useState} from 'react'
 
 export const useUpdateVideo = () => {
-    const [loading, setLoading] = useState('')
-    const [data, setData] = useState('')
-    const [isError, setIsError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState(null)
+    const [isError, setIsError] = useState(false)
 
     const updateVideo = async (playlistId, video) => {
         setLoading(true)
 
         try {
-            const videoUpdated = await postApi(`/playlists/${playlistId}/${video._id}`, video)
+            const videoUpdated = await patchApi(`/playlists/${playlistId}/${video._id}`, video)
             setData(videoUpdated)
             
         } catch {

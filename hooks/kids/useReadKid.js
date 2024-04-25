@@ -2,9 +2,9 @@ import {restUrl, graphqlUrl} from '../../constants'
 import {useState} from 'react'
 
 export const useReadKid = () => {
-    const [loading, setLoading] = useState('')
+    const [loading, setLoading] = useState(false)
     const [data, setData] = useState(null)
-    const [isError, setIsError] = useState('')
+    const [isError, setIsError] = useState(false)
 
     const readKids = async (userId) => {
         setLoading(true)

@@ -2,9 +2,9 @@ import {restUrl} from '../../constants'
 import {useState} from 'react'
 
 export const useDeleteKid = () => {
-    const [loading, setLoading] = useState('')
-    const [data, setData] = useState('')
-    const [isError, setIsError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState(null)
+    const [isError, setIsError] = useState(false)
 
     const deleteKid = async (kidId) => {
         setLoading(true)

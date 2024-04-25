@@ -2,9 +2,9 @@ import { postApi } from '../../src/api'
 import {useState} from 'react'
 
 export const useCreateKid = () => {
-    const [loading, setLoading] = useState('')
-    const [data, setData] = useState('')
-    const [isError, setIsError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState(null)
+    const [isError, setIsError] = useState(false)
 
     const createKid = async (kid) => {
         setLoading(true)
