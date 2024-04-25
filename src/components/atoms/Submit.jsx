@@ -1,9 +1,10 @@
+import classNames from 'classnames'
 import React from 'react'
 
-const Submit = ({ children = 'Confirm' }) => {
+const Submit = ({ children = 'Confirm', className = null }) => {
   return (
     <input
-      className="main-button"
+      className={classNames('main-button', className)}
       type="submit" 
       value={children}
     />

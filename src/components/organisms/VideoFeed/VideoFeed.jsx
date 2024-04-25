@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react'
 // Local imports
 import PrivateLayout from '@layouts/PrivateLayout'
 import PlaylistButton from '@atoms/PlaylistButton'
-import SearchBar from '@molecules/SearchBar'
+import SearchBar from '@src/components/molecules/SearchBar/SearchBar'
 import { useSession } from '@hooks/users/useSession'
 import { useReadVideo } from '@hooks/videos/useReadVideo'
 import { useReadPlaylist } from '@hooks/playlists/useReadPlaylist'
 import { useKidPinSession } from '@hooks/users/useKidPinSession'
 import './VideoFeed.scss'
+import '@components/scssGlobal/utils.scss'
 
 const VideoFeed = () => {
 
@@ -68,7 +69,7 @@ const VideoFeed = () => {
 
     return (
         <PrivateLayout headerLinks={headerLinks} onLinkClick={handleLinkClick}>
-            <SearchBar onSearch={onSearch}/>
+            <SearchBar className="little" onSearch={onSearch}/>
             <div id='playlist-buttons' >
                 <ul>
                     {

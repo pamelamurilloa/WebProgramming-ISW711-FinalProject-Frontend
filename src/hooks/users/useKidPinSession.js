@@ -12,16 +12,17 @@ export const useKidPinSession = () => {
     const [data, setData] = useState(null)
     const [isError, setIsError] = useState(false)
 
-    const login = async (childId, pin) => {
+    const login = async (_id, pin) => {
         setLoading(true)
         setIsError(false)
 
         try {
-            const kid = await postApi('/session/kids', {childId, pin})
+            const kid = await postApi('/session/kids', {_id, pin})
             localStorage.setItem('kid', 'true')
             setData(kid)
             
-        } catch {
+        } catch (err) {
+            console.error(err)
             setIsError(true)
         } finally {
             setLoading(false)

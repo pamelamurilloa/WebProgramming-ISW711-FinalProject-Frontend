@@ -108,8 +108,12 @@ const AvatarEntry = () => {
                 { profileLogin &&
                     <PopUp>
                         <PinForm
-                            loginTry ={handleFurtherLogin}
+                            loginTry ={(pin) => handleFurtherLogin(pin)}
                         >
+                            {
+                                (isErrorKidLogin || isErrorUserPinLogin) &&
+                                <p>Error en el pin</p>
+                            }
                             <Button
                                 onClick={
                                     () => {

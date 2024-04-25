@@ -1,0 +1,14 @@
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 5%;
+
+    .input-form {
+        margin: 1%;
+    }
+
+    .main-button {
+        width: auto;
+    }
+}
