@@ -14,15 +14,14 @@ export const useRegister = () => {
         try {
 
             const user = await postApi('/users', {...newUser, cellphone: newUser.formatedCellphone});
-
-            setLoading(false)
-
             const playlist = await postApi('/playlists', {name: "General", userId: user._id});
         
             setData(user)
             
         } catch {
             setIsError(true);
+        } finally {
+            setLoading(false)
         }
     }
 

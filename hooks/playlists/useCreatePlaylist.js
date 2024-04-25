@@ -1,3 +1,6 @@
+import { postApi } from '../../src/api'
+import {useState} from 'react'
+
 const restUrl = require('../../constants')
 
 export const useCreatePlaylist = () => {
@@ -8,22 +11,14 @@ export const useCreatePlaylist = () => {
     const createPlaylist = async (playlist) => {
         setLoading(true)
 
-        const res = await fetch(
-            restUrl + "/playlists/", 
-            {
-                method: 'POST',
-                body: playlist
-            }
-        )
-
-        setLoading(false)
-    
-        if (res.status === 201) {
-            const playlistCreated = await res.json()
+        try {
+            const playlistCreated = await postApi('/playlists', playlist)
             setData(playlistCreated)
             
-        } else {
+        } catch {
             setIsError(true);
+        } finally {
+            setLoading(false)
         }
         
     }

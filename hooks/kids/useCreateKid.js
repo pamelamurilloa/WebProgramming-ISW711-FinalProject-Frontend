@@ -1,4 +1,6 @@
 import {restUrl} from '../../constants'
+import { postApi } from '../../src/api'
+import {useState} from 'react'
 
 export const useCreateKid = () => {
     const [loading, setLoading] = useState('')
@@ -8,22 +10,14 @@ export const useCreateKid = () => {
     const createKid = async (kid) => {
         setLoading(true)
 
-        const res = await fetch(
-            restUrl + "/kids", 
-            {
-                method: 'POST',
-                body: kid
-            }
-        )
-
-        setLoading(false)
-    
-        if (res.status === 201) {
-            const kidCreated = await res.json()
+        try {
+            const kidCreated = await postApi('/kids', kid)
             setData(kidCreated)
             
-        } else {
+        } catch {
             setIsError(true);
+        } finally {
+            setLoading(false)
         }
         
     }

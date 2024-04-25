@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import PrivateLayout from '../layouts/PrivateLayout'
 import PopUp from '../molecules/PopUp'
 import { useReadKid } from '../../../hooks/kids/useReadKid'
+import { useAuth } from '../../contexts/authContext'
+import { useSession } from '../../../hooks/users/useSession'
+
 
 const AvatarEntry = () => {
 

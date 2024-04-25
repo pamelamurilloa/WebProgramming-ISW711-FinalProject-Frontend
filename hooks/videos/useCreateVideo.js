@@ -1,4 +1,6 @@
 import {restUrl} from '../../constants'
+import {useState} from 'react'
+import { postApi } from '../../src/api'
 
 export const useCreateVideo = () => {
     const [loading, setLoading] = useState('')
@@ -8,22 +10,14 @@ export const useCreateVideo = () => {
     const createVideo = async (playlistId, video) => {
         setLoading(true)
 
-        const res = await fetch(
-            restUrl + `/playlists/${playlistId}`, 
-            {
-                method: 'POST',
-                body: video
-            }
-        )
-
-        setLoading(false)
-    
-        if (res.status === 201) {
-            const videoCreated = await res.json()
+        try {
+            const videoCreated = await postApi(`/playlists/${playlistId}`, video)
             setData(videoCreated)
             
-        } else {
+        } catch {
             setIsError(true);
+        } finally {
+            setLoading(false)
         }
         
     }
