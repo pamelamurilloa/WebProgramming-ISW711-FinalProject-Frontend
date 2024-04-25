@@ -10,8 +10,8 @@ const PrivateLayout = ({children, headerLinks, onLinkClick}) => {
   
   useEffect(
     () => {
-      if(user) {
-        navigate("/avatar");
+      if(!user) {
+        navigate("/");
       }
     },
     [user]

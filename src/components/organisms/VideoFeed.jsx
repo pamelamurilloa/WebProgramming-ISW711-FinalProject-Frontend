@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { Navigate, useNavigate} from 'react-router-dom';
 
 // Local imports
 import PrivateLayout from '../layouts/PrivateLayout'
 import PlaylistButton from '../atoms/PlaylistButton'
+import SearchBar from '../molecules/SearchBar'
 import { useReadVideo } from '../../../hooks/videos/useReadVideo'
 import { useReadPlaylist } from '../../../hooks/playlists/useReadPlaylist'
+import { useKidPinSession } from '../../../hooks/users/useKidPinSession'
 
 const VideoFeed = () => {
 
     const [selectedPlaylist, setSelectedPlaylist] = useState('')
+
+    const {loading:loadingKid, data:kid, isError:isErrorKid, logout} = useKidPinSession();
 
     const {loading:loadingReadVideo, data:dataReadVideos, isError:isErrorReadVideo, readVideos} = useReadVideo()
     const {loading:loadingReadPlaylist, data:dataReadPlaylists, isError:isErrorReadPlaylist, readPlaylists} = useReadPlaylist()
@@ -33,6 +38,17 @@ const VideoFeed = () => {
         readVideos(selectedPlaylist, query)
     }
 
+    // Header and link manipulation
+    const headerLinks = [
+        { id: 1, title: "Logout" },
+        ];
+
+    const handleLinkClick = (linkId) => {
+        if ( linkId === 1 ) {
+            logout();
+        }
+    }
+
     const getEmbedUrl = (videoUrl) => {
         var videoIdMatch = videoUrl.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
         
@@ -46,12 +62,12 @@ const VideoFeed = () => {
     }
 
     return (
-        <PrivateLayout>
+        <PrivateLayout headerLinks={headerLinks} onLinkClick={handleLinkClick}>
             <SearchBar onSearch={onSearch}/>
             <div id='playlist-buttons' >
                 <ul>
                     {
-                        playlists?.map(playlist => {
+                        dataReadPlaylists.data?.map(playlist => {
                             <PlaylistButton selected={playlist.selected}>
                                 {`${playlist.name} ${playlist.number}`}
                             </PlaylistButton>
@@ -61,7 +77,7 @@ const VideoFeed = () => {
             </div>
             <div class="page-content">
                     {
-                        selectedPlaylist.map(video => {
+                        selectedPlaylist.data?.map(video => {
                             <div className='video-card'>
                                 <h3>${video.name}</h3>
                                 <iframe 
@@ -77,6 +93,6 @@ const VideoFeed = () => {
             </div>
         </PrivateLayout>
     )
-}
+} 
 
 export default VideoFeed

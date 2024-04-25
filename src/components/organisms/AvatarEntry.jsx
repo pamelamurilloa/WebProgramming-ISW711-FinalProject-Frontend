@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 // Local Imports
 import Button from '../atoms/Button'
@@ -9,17 +10,26 @@ import ProfileCard from '../molecules/ProfileCard/ProfileCard'
 import { useReadKid } from '../../../hooks/kids/useReadKid'
 import { useAuth } from '../../contexts/authContext'
 import { useSession } from '../../../hooks/users/useSession'
+import { useKidPinSession } from '../../../hooks/users/useKidPinSession'
+import { useUserPinSession } from '../../../hooks/users/useUserPinSession'
 
 
 const AvatarEntry = () => {
 
+    const navigate = useNavigate()
+
     const {user, setUser} = useAuth();
     const {loading, data, isError, login, logout} = useSession()
+
+    const {loading:loadingKidLogin, data:dataReadKidLogin, isError:isErrorKidLogin, login: kidLogin} = useKidPinSession();
+
+    const {loading:loadingUserPinLogin, data:dataReadUserPinLogin, isError:isErrorUserPinLogin, login: userLogin} = useUserPinSession();
 
     const [profileLogin, setProfileLogin] = useState(null)
     const [isAdmin, setIsAdmin] = useState(null)
 
     const {loading:loadingRead, data:dataReadKids, isError:isErrorRead, readKids} = useReadKid()
+
 
     useEffect(
         () => {
@@ -46,19 +56,30 @@ const AvatarEntry = () => {
         [profileLogin, isAdmin]
     )
 
-    const handleFurtherLogin = () => {
-        // confirm with database
-        if (isAdmin) {
+    useEffect(
+        () => {
+            if (isAdmin) {
+                navigate("/administration");
+            } else {
+                navigate("/videoFeed");
+            }
+        },
+        [dataReadUserPinLogin, dataReadKidLogin]
+    )
 
+    const handleFurtherLogin = (pin) => {
+        if (isAdmin) {
+            userLogin(user._id, pin)
         } else {
+            kidLogin(profileLogin._id, pin)
         }
     }
 
+    // Header and link manipulation
     const headerLinks = [
         { id: 1, title: "Enter as Admin" },
         { id: 2, title: "Logout" }
       ];
-
 
     const handleLinkClick = (linkId) => {
         if ( linkId === 1 ) {
@@ -73,7 +94,7 @@ const AvatarEntry = () => {
     return (
         <PrivateLayout headerLinks={headerLinks} onLinkClick={handleLinkClick} >
             <div className='page-content'>
-                {/* <div className="profiles" id="profile-grid">
+                <div className="profiles" id="profile-grid">
                     {
                         dataReadKids?.map((profile) => 
                             <ProfileCard
@@ -88,20 +109,21 @@ const AvatarEntry = () => {
                             />
                         )
                     }
-                </div> */}
+                </div>
 
                 { profileLogin &&
                     <PopUp>
-                        <PinForm userId={profileLogin._id} loginTry={(pin) => handleFurtherLogin(pin)}>
-                        <Button
-                            onClick={
-                                () => {
-                                    setProfileLogin(null)
-                                    setIsAdmin(null)}
-                                }
+                        <PinForm
+                            userId={profileLogin._id}
+                            loginTry ={(pin) => handleFurtherLogin(pin)}
                         >
-                            Cancel
-                        </Button>
+                            <Button
+                                onClick={
+                                    () => {
+                                        setProfileLogin(null)
+                                        setIsAdmin(null)}
+                                    }
+                            />
                         </PinForm>
                     </PopUp>
                 }

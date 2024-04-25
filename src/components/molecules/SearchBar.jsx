@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Input from '../atoms/Input'
+import Button from '../atoms/Button'
 import { IoSearchSharp } from "react-icons/io5";
 
 

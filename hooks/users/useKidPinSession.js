@@ -1,21 +1,19 @@
 import { useState } from 'react'
 import { postApi } from '../../src/api'
-import {useAuth} from '../../src/contexts/authContext'
 
-export const useSession = () => {
+export const useKidPinSession = () => {
     const [loading, setLoading] = useState('')
     const [data, setData] = useState('')
     const [isError, setIsError] = useState('')
 
-    const {setUser} = useAuth()
-
-    const login = async (email, password) => {
+    const login = async (childId, pin) => {
         setLoading(true)
         setIsError(false)
 
         try {
-            const user = await postApi('/session/login', {email, password})
-            setData(user)
+            const kid = await postApi('/session/kids', {childId, pin})
+            localStorage.addItem('kid')
+            setData(kid)
             
         } catch {
             setIsError(true)
@@ -26,10 +24,9 @@ export const useSession = () => {
     }
 
     const logout = async () => {
-        localStorage.remove('user')
-        setUser(null)
+        localStorage.remove('kid')
+        navigate("/avatar");
     }
-
 
     return {loading, data, isError, login, logout}
 }

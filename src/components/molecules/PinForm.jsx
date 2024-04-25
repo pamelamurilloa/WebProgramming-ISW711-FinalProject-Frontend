@@ -4,7 +4,7 @@ import Submit from '../atoms/Submit'
 import Button from '../atoms/Button'
 
 
-const PinForm = ({onConfirm}) => {
+const PinForm = ({onConfirm, children}) => {
 
     const [pin, setPin] = useState('')
 
@@ -26,7 +26,7 @@ const PinForm = ({onConfirm}) => {
                     onChange={setPin}
                 />
                 <Submit>Confirm</Submit>
-                <Button>Go Back</Button>
+                {children}
             </form>
         </>
     )
