@@ -5,10 +5,10 @@ import Submit from '../atoms/Submit'
 import Button from '../atoms/Button'
 import { useAuth } from '@src/contexts/authContext'
 
-const PlaylistForm = ({onSave, goBack, playlist = null}) => {
+const PlaylistForm = ({onSave, goBack, playlistToEdit = null}) => {
 
-    const [name, setName] = useState(playlist?.name || '')
-    const [selectedKids, setSelectedKids] = useState([])
+    const [name, setName] = useState(playlistToEdit?.name || '')
+    const [selectedKids, setSelectedKids] = useState({})
 
     const {user} = useAuth();
 
@@ -31,12 +31,11 @@ const PlaylistForm = ({onSave, goBack, playlist = null}) => {
 
     console.log('kids', kids)
 
-    const handleCheckBox = (checked, kidId) => {
-        if (checked) {
-            setSelectedKids([...selectedKids, kidId]);
-        } else {
-            setSelectedKids(selectedKids.filter(item => item !== kidId));
-        }
+    const handleCheckBox = (kidId, isChecked) => {
+        setSelectedKids(prevState => ({
+            ...prevState,
+            [kidId]: isChecked,
+        }));
     }
 
     return (
@@ -54,8 +53,8 @@ const PlaylistForm = ({onSave, goBack, playlist = null}) => {
                             <div key={kid._id}>                            
                                 <label htmlFor={kid._id}>{kid.name}</label>
                                 <Input
-                                    checked={false}
-                                    onChange={(checked) => handleCheckBox(checked, kid._id)}
+                                    checked={selectedKids[kid._id] || false}
+                                    onChange={(isChecked) => handleCheckBox(kid._id, isChecked)}
                                     type="checkbox"
                                     id={kid._id}
                                     value={kid._id}

@@ -30,10 +30,12 @@ const PlaylistCRUD = () => {
 
   const [name, setName] = useState('')
   const [url, setUrl] = useState('')
+  const [description, setDescription] = useState('')
 
   const [videoToEdit, setVideoToEdit] = useState(null)
   const [playlistToEdit, setPlaylistToEdit] = useState(null)
 
+  const [openForm, setOpenForm] = useState(false)
 
   const [selectedPlaylistId, setSelectedPlaylistId] = useState('')
   const [message, setMessage] = useState('Create video')
@@ -87,6 +89,7 @@ const PlaylistCRUD = () => {
 
   const handleDeleteVideo = (videoId) => {
     //Confirmation message
+    setPlaylistToEdit(null)
     deleteVideo(selectedPlaylistId, videoId)
   }
 
@@ -95,21 +98,27 @@ const PlaylistCRUD = () => {
     setVideoToEdit(video)
     setName(video.name)
     setUrl(video.url)
+    setDescription(video.description)
   }
 
   const startEditPlaylist = () => {
     const playlistToEdit = dataReadPlaylists.find(
       (playlist) =>  playlist._id === selectedPlaylistId)
     setPlaylistToEdit(playlistToEdit)
+    setOpenForm(true)
   }
 
   const handlePlaylistDelete = () => {
     //Confirmation message
-    //deletePlaylist(selectedPlaylistId);
+    deletePlaylist(selectedPlaylistId)
+    
+    setPlaylistToEdit(null)
+    readPlaylists(user._id)
+    setOpenForm(false)
   }
 
   const handleSavevideo = (video) => {
-    if ( video.name && video.url.startsWith("https://www.youtube.com/") ) {
+    if ( video.name && video.description && video.url.startsWith("https://www.youtube.com/") ) {
         if (videoToEdit) {
             updateVideo(video)
         } else {
@@ -122,19 +131,26 @@ const PlaylistCRUD = () => {
   }
 
   const handlePlaylistAddition = () => {
-
+    setOpenForm(true)
+    setPlaylistToEdit(null)
   }
 
-  const handleOnSavePlaylist = (name, kids) => {
-    console.log('name & kids', name, kids)
+  const handleOnSavePlaylist = ({name, selectedKids}) => {
+
+    const kids = Object.entries(selectedKids)
+    .filter(([_, isChecked]) => isChecked)
+    .map(([kidId, _]) => kidId);
+
     if (name && kids) {
       if (playlistToEdit) {
-        updatePlaylist({id: selectedPlaylistId, name, kids})
+        updatePlaylist({_id: selectedPlaylistId, name, kids})
       } else {
-        createPlaylist({name, kids, user: user._id})
+        createPlaylist({name, kids, userId: user._id})
       }
 
       setPlaylistToEdit(null)
+      readPlaylists(user._id)
+      setOpenForm(false)
     }
   }
 
@@ -183,10 +199,10 @@ const PlaylistCRUD = () => {
         </Button>
 
         {
-          playlistToEdit &&
+          openForm &&
 
           <PopUp>
-              <PlaylistForm goBack={() => setPlaylistToEdit(null)} onSave={handleOnSavePlaylist} />
+              <PlaylistForm playlistToEdit={playlistToEdit} goBack={() => setPlaylistToEdit(null)} onSave={handleOnSavePlaylist} />
           </PopUp>
         }
       </div>
@@ -198,6 +214,7 @@ const PlaylistCRUD = () => {
             <tr>
                 <th>Name</th>
                 <th>URL</th>
+                <th>Description</th>
                 <th>Modify</th>
             </tr>
           </thead>
@@ -207,6 +224,7 @@ const PlaylistCRUD = () => {
                 <tr key={video._id}>
                   <td>{video.name}</td>
                   <td>{video.url}</td>
+                  <td>{video.description}</td>
                   <td>
                     <Button icon={<FaEdit />} onClick={() => startEditVideo(video)}>Edit</Button>
                     <Button icon={<MdDeleteForever />} onClick={() => handleDeleteVideo(video._id)}>Delete</Button>
@@ -225,6 +243,12 @@ const PlaylistCRUD = () => {
                 required 
                 value={name} 
                 onChange={setName}
+            />
+            <Input
+                id="video-description" placeholder="Description of the video"
+                required 
+                value={description} 
+                onChange={setDescription}
             />
             <Input
                 id="video-url" placeholder="URL of the video"
