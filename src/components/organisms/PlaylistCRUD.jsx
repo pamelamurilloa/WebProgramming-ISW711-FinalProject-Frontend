@@ -11,6 +11,7 @@ import Submit from '@atoms/Submit'
 import Input from '@atoms/Input'
 import PopUp from '@molecules/PopUp'
 import PlaylistForm from '@molecules/PlaylistForm'
+import '@components/scssGlobal/cruds.scss'
 import { useReadVideo } from '@hooks/videos/useReadVideo'
 import { useUpdateVideo } from '@hooks/videos/useUpdateVideo'
 import { useCreateVideo } from '@hooks/videos/useCreateVideo'
@@ -20,11 +21,12 @@ import { useSession } from '@hooks/users/useSession'
 import { useDeletePlaylist } from '@src/hooks/playlists/useDeletePlaylist';
 import { useCreatePlaylist } from '@src/hooks/playlists/useCreatePlaylist';
 import { useUpdatePlaylist } from '@src/hooks/playlists/useUpdatePlaylist';
+import { useAuth } from '@src/contexts/authContext';
 
 
 const PlaylistCRUD = () => {
 
-  const {loading, data: dataUser, isError, login} = useSession()
+  const {user, setUser} = useAuth()
 
   const [name, setName] = useState('')
   const [url, setUrl] = useState('')
@@ -33,7 +35,7 @@ const PlaylistCRUD = () => {
   const [playlistToEdit, setPlaylistToEdit] = useState(null)
 
 
-  const [selectedPlaylistId, setSelectedPlaylist] = useState('')
+  const [selectedPlaylistId, setSelectedPlaylistId] = useState('')
   const [message, setMessage] = useState('Create video')
 
   const {loading:loadingDelete, data:dataDelete, isError:isErrorDelete, deleteVideo} = useDeleteVideo();
@@ -48,9 +50,19 @@ const PlaylistCRUD = () => {
 
   useEffect(
     () => {
-      readPlaylists()
+      if (user)
+      readPlaylists(user._id)
     },
     []
+  )
+
+  useEffect(
+    () => {
+      if (dataReadPlaylists) {
+        setSelectedPlaylistId(dataReadPlaylists[0]?._id);
+      }
+    },
+    [dataReadPlaylists]
   )
 
   useEffect(
@@ -63,7 +75,7 @@ const PlaylistCRUD = () => {
   )
 
   const handlePlaylistChange = ( {target: {value}} ) => {
-    setSelectedPlaylist(value)
+    setSelectedPlaylistId(value)
   }
 
   const handleClear = () => {
@@ -114,11 +126,12 @@ const PlaylistCRUD = () => {
   }
 
   const handleOnSavePlaylist = (name, kids) => {
+    console.log('name & kids', name, kids)
     if (name && kids) {
       if (playlistToEdit) {
         updatePlaylist({id: selectedPlaylistId, name, kids})
       } else {
-        createPlaylist({name, kids, user: dataUser._id})
+        createPlaylist({name, kids, user: user._id})
       }
 
       setPlaylistToEdit(null)
@@ -144,23 +157,22 @@ const PlaylistCRUD = () => {
       <div className='playlist-crud'>
 
         {
-          <>
-            {selectedPlaylistId} &&
+            selectedPlaylistId &&
+            <>
+              <Button 
+                icon={<FaEdit />}
+                onClick={startEditPlaylist}
+              >
+                Edit current Playlist
+              </Button>
 
-            <Button 
-              icon={<FaEdit />}
-              onClick={startEditPlaylist}
-            >
-              Edit current Playlist
-            </Button>
-
-            <Button 
-              icon={<MdDeleteForever />}
-              onClick={handlePlaylistDelete}
-            >
-              Delete current Playlist
-            </Button>
-          </>
+              <Button 
+                icon={<MdDeleteForever />}
+                onClick={handlePlaylistDelete}
+              >
+                Delete current Playlist
+              </Button>
+            </>
         }
 
         <Button
@@ -174,7 +186,7 @@ const PlaylistCRUD = () => {
           playlistToEdit &&
 
           <PopUp>
-              <PlaylistForm onSave={handleOnSavePlaylist} />
+              <PlaylistForm goBack={() => setPlaylistToEdit(null)} onSave={handleOnSavePlaylist} />
           </PopUp>
         }
       </div>

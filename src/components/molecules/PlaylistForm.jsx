@@ -1,31 +1,41 @@
 import React, { useEffect, useState } from 'react'
 import { useReadKid } from '@hooks/kids/useReadKid'
+import Input from '../atoms/Input'
+import Submit from '../atoms/Submit'
+import Button from '../atoms/Button'
+import { useAuth } from '@src/contexts/authContext'
 
-const PlaylistForm = (onSave) => {
+const PlaylistForm = ({onSave, goBack, playlist = null}) => {
 
-    const [name, setName] = useState('')
-    const [kids, setKids] = useState()
+    const [name, setName] = useState(playlist?.name || '')
     const [selectedKids, setSelectedKids] = useState([])
 
-    const [loading, data, isError, readKids] = useReadKid()
+    const {user} = useAuth();
 
-    const handleSubmit = () => {
+    const {loading, data: kids, isError, readKids} = useReadKid()
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
         onSave({name, selectedKids})
     }
     
     useEffect(
         () => {
-            readKids()
+            if (user) {
+                readKids(user._id)
+            }
+            
         },
         []
     )
 
-    const handleCheckBox = ({target}) => {
-        const kid = target.value;
-        if (target.checked) {
-            setSelectedKids([...selectedKids, kid]);
+    console.log('kids', kids)
+
+    const handleCheckBox = (checked, kidId) => {
+        if (checked) {
+            setSelectedKids([...selectedKids, kidId]);
         } else {
-            setSelectedKids(selectedKids.filter(item => item !== kid));
+            setSelectedKids(selectedKids.filter(item => item !== kidId));
         }
     }
 
@@ -39,20 +49,24 @@ const PlaylistForm = (onSave) => {
                     onChange={setName}
                 />
                 {
-                    kids.map (kid => {
-                        <Input
-                            onChange={handleCheckBox}
-                            type="checkbox"
-                            key={kid._id}
-                            value={kid._id}
-                        >
-                            {kid.name}
-                        </Input>
+                    kids?.map(kid => {
+                        return (
+                            <div key={kid._id}>                            
+                                <label htmlFor={kid._id}>{kid.name}</label>
+                                <Input
+                                    checked={false}
+                                    onChange={(checked) => handleCheckBox(checked, kid._id)}
+                                    type="checkbox"
+                                    id={kid._id}
+                                    value={kid._id}
+                                />
+                            </div>
+                        )        
                     })
                 }
 
                 <Submit/>
-                <Button>Go Back</Button>
+                <Button onClick={goBack}>Go Back</Button>
             </form>
         </>
     )

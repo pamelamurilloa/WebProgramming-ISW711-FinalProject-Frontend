@@ -6,7 +6,7 @@ export const useReadVideo = () => {
     const [data, setData] = useState(null)
     const [isError, setIsError] = useState(false)
 
-    const readVideos = async (playlistId, query) => {
+    const readVideos = async (playlistId) => {
         setLoading(true)
 
         const res = await fetch(
@@ -19,8 +19,8 @@ export const useReadVideo = () => {
         setLoading(false)
     
         if (res.status === 200) {
-            const videos = await res.json()
-            setData(videos)
+            const videosData = await res.json()
+            setData(videosData.videos)
             
         } else {
             setIsError(true);

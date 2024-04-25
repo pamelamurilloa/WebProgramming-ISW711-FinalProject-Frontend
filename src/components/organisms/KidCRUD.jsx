@@ -9,10 +9,16 @@ import { useDeleteKid } from '@hooks/kids/useDeleteKid'
 import { useUpdateKid } from '@hooks/kids/useUpdateKid'
 import { useReadKid } from '@hooks/kids/useReadKid'
 import EmptyProfile from '@molecules/ProfileCard/EmptyProfile'
+import PopUp from '../molecules/PopUp'
+import { useAuth } from '@src/contexts/authContext'
+import '@components/scssGlobal/cruds.scss'
+
 
 const KidCRUD = () => {
 
-    const [openForm, setOpenForm] = useState('')
+    const [openForm, setOpenForm] = useState(false)
+    const {user} = useAuth()
+
     const [profileToEdit, setProfileToEdit] = useState(null)
 
     const {loading:loadingDelete, data:dataDelete, isError:isErrorDelete, deleteKid} = useDeleteKid();
@@ -22,24 +28,38 @@ const KidCRUD = () => {
 
     useEffect(
         () => {
-            readKids()
+            if(user) {
+                readKids(user._id)
+            }
         },
         []
+    )
+
+    useEffect(
+        () => {
+            if(profileToEdit) {
+                setOpenForm(true)
+            }
+        },
+        [profileToEdit]
     )
 
     const deleteProfile = (profileId) => {
         //Confirmation message
         deleteKid(profileId)
+        readKids(user._id)
     }
     
     const handleSave = (profile) => {
         if (profile.name && profile.age && profile.avatar && !isNaN(profile.pin) ) {
-            if (profile._id) {
+            if (profileToEdit) {
                 updateKid(profile)
             } else {
+                profile.userId = user._id
                 createKid(profile)
             }
             
+            readKids(user._id)
             setProfileToEdit(null)
             setOpenForm(false)
         }
@@ -60,12 +80,16 @@ const KidCRUD = () => {
                         />
                     )
                 }
-                <EmptyProfile addProfile={() => setOpenForm(true)}/>
+                <EmptyProfile addProfile={() => {setOpenForm(true); setProfileToEdit(null)}}/>
             </div>
 
-            { (openForm || profileToEdit) &&
+            { openForm &&
                 <PopUp>
-                    <KidsForm kid={profileToEdit} onSave={handleSave}/>
+                    <KidsForm
+                        kid={profileToEdit}
+                        onSave={handleSave}
+                        onCancel={() => {setOpenForm(false); setProfileToEdit(null) }}
+                    />
                 </PopUp>
             }
         </section>

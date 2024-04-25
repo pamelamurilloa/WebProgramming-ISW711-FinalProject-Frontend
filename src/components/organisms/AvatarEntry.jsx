@@ -51,13 +51,6 @@ const AvatarEntry = () => {
 
     useEffect(
         () => {
-            console.log(profileLogin)
-        },
-        [profileLogin, isAdmin]
-    )
-
-    useEffect(
-        () => {
             const admin = localStorage.getItem('admin')
             const kid = localStorage.getItem('kid')
             if (admin) {

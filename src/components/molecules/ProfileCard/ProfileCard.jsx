@@ -21,7 +21,7 @@ const ProfileCard = ({ profile, askForEntry = null, editProfile = null, deletePr
     return (
         <div className="profile" id={profile._id}>         
             <img
-                src={process.env.PUBLIC_URL + `/profilePictures/profile${profile.avatar}.png`}
+                src={`/profilePictures/profile${profile.avatar}.png`}
                 alt="Profile Avatar"
                 onClick={handleImageClick}
             />

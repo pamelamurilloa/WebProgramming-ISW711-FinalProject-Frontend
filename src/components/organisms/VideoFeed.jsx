@@ -39,7 +39,7 @@ const VideoFeed = () => {
       )
 
     const onSearch = (query) => {
-        readVideos(selectedPlaylist, query)
+        readVideos(selectedPlaylist)
     }
 
     // Header and link manipulation

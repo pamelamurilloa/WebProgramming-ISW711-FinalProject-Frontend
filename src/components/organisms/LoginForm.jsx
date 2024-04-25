@@ -19,7 +19,7 @@ const LoginForm = () => {
 
 
     const [code, setCode] = useState('')
-    const [isCodeSent, setIsCodeSent] = useState('')
+    const [isCodeSent, setIsCodeSent] = useState(false)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -52,7 +52,7 @@ const LoginForm = () => {
     const handleCodeSent = (event) => {
         event.preventDefault()
 
-        if(!isNaN(code)) {
+        if(!isNaN( parseInt(code) )) {
             verifyCode(loggedUser._id, code)
         }
     }
