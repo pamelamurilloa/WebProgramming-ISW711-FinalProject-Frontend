@@ -14,6 +14,7 @@ const PlaylistForm = ({onSave, goBack, playlistToEdit = null}) => {
 
     const {loading, data: kids, isError, readKids} = useReadKid()
 
+
     const handleSubmit = (e) => {
         e.preventDefault()
         onSave({name, selectedKids})

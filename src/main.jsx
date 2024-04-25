@@ -13,7 +13,7 @@ import './components/scssGlobal/all.scss'
 import MainLayout from './components/layouts/MainLayout'
 import LoginForm from './components/organisms/LoginForm'
 import RegisterForm from './components/organisms/RegisterForm'
-import VideoFeed from './components/organisms/VideoFeed';
+import VideoFeed from './components/organisms/VideoFeed/VideoFeed';
 import AvatarEntry from './components/organisms/AvatarEntry';
 import Administration from './components/pages/Administration';
 

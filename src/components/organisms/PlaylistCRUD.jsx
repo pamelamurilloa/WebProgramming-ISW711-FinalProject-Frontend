@@ -40,9 +40,9 @@ const PlaylistCRUD = () => {
   const [selectedPlaylistId, setSelectedPlaylistId] = useState('')
   const [message, setMessage] = useState('Create video')
 
-  const {loading:loadingDelete, data:dataDelete, isError:isErrorDelete, deleteVideo} = useDeleteVideo();
-  const {loading:loadingCreate, data:dataCreate, isError:isErrorCreate, createVideo} = useCreateVideo();
-  const {loading:loadingUpdate, data:dataUpdate, isError:isErrorUpdate, updateVideo} = useUpdateVideo();
+  const {loading:loadingDelete, data:dataDeleteVideo, isError:isErrorDelete, deleteVideo} = useDeleteVideo();
+  const {loading:loadingCreate, data:dataCreateVideo, isError:isErrorCreate, createVideo} = useCreateVideo();
+  const {loading:loadingUpdate, data:dataUpdateVideo, isError:isErrorUpdate, updateVideo} = useUpdateVideo();
   const {loading:loadingRead, data:dataReadVideos, isError:isErrorRead, readVideos} = useReadVideo();
 
   const {loading:loadingDeletePlaylist, data:dataDeletePlaylist, isError:isErrorDeletePlaylist, deletePlaylist} = useDeletePlaylist();
@@ -76,6 +76,60 @@ const PlaylistCRUD = () => {
     [selectedPlaylistId]
   )
 
+  useEffect(
+    () => {
+      if (dataUpdatePlaylist) {
+        readPlaylists(user._id)
+      }
+    },
+    [dataUpdatePlaylist]
+  )
+
+  useEffect(
+    () => {
+      if (dataDeletePlaylist) {
+        readPlaylists(user._id)
+      }
+    },
+    [dataDeletePlaylist]
+  )
+  useEffect(
+    () => {
+      if (dataCreatePlaylist) {
+        readPlaylists(user._id)
+      }
+    },
+    [dataCreatePlaylist]
+  )
+
+
+  useEffect(
+    () => {
+      if (dataUpdateVideo) {
+        readVideos(selectedPlaylistId)
+      }
+    },
+    [dataUpdateVideo]
+  )
+
+  useEffect(
+    () => {
+      if (dataDeleteVideo) {
+        readVideos(selectedPlaylistId)
+      }
+    },
+    [dataDeleteVideo]
+  )
+  useEffect(
+    () => {
+      if (dataCreateVideo) {
+        readVideos(selectedPlaylistId)
+      }
+    },
+    [dataCreateVideo]
+  )
+
+
   const handlePlaylistChange = ( {target: {value}} ) => {
     setSelectedPlaylistId(value)
   }
@@ -85,12 +139,6 @@ const PlaylistCRUD = () => {
     setUrl('')
     setMessage('Create video')
     setVideoToEdit(null)
-  }
-
-  const handleDeleteVideo = (videoId) => {
-    //Confirmation message
-    setPlaylistToEdit(null)
-    deleteVideo(selectedPlaylistId, videoId)
   }
 
   const startEditVideo = (video) => {
@@ -111,18 +159,24 @@ const PlaylistCRUD = () => {
   const handlePlaylistDelete = () => {
     //Confirmation message
     deletePlaylist(selectedPlaylistId)
-    
+
     setPlaylistToEdit(null)
-    readPlaylists(user._id)
     setOpenForm(false)
   }
 
-  const handleSavevideo = (video) => {
-    if ( video.name && video.description && video.url.startsWith("https://www.youtube.com/") ) {
+  const handleVideoDelete = (videoId) => {
+    // TODO Confirmation message
+    setPlaylistToEdit(null)
+    deleteVideo(selectedPlaylistId, videoId)
+  }
+
+  const handleSaveVideo = (e) => {
+    e.preventDefault()
+    if ( name && description && url.startsWith("https://www.youtube.com/") ) {
         if (videoToEdit) {
-            updateVideo(video)
+            updateVideo(selectedPlaylistId, {_id: videoToEdit._id, name, description, url})
         } else {
-            createVideo(video)
+            createVideo(selectedPlaylistId, {name, description, url})
         }
         
         setVideoToEdit(null)
@@ -149,10 +203,11 @@ const PlaylistCRUD = () => {
       }
 
       setPlaylistToEdit(null)
-      readPlaylists(user._id)
       setOpenForm(false)
     }
   }
+
+  console.log('videos', dataReadVideos)
 
   return (
     <section id="video-section">
@@ -202,7 +257,15 @@ const PlaylistCRUD = () => {
           openForm &&
 
           <PopUp>
-              <PlaylistForm playlistToEdit={playlistToEdit} goBack={() => setPlaylistToEdit(null)} onSave={handleOnSavePlaylist} />
+              <PlaylistForm
+                playlistToEdit={playlistToEdit}
+                goBack={
+                  () => {
+                    setPlaylistToEdit(null);
+                    setOpenForm(false) 
+                  } }
+                onSave={handleOnSavePlaylist}
+              />
           </PopUp>
         }
       </div>
@@ -220,24 +283,24 @@ const PlaylistCRUD = () => {
           </thead>
           <tbody id="video-table">
             {
-              dataReadVideos?.map((video) => {
+              dataReadVideos?.map((video) =>
                 <tr key={video._id}>
                   <td>{video.name}</td>
                   <td>{video.url}</td>
                   <td>{video.description}</td>
                   <td>
-                    <Button icon={<FaEdit />} onClick={() => startEditVideo(video)}>Edit</Button>
-                    <Button icon={<MdDeleteForever />} onClick={() => handleDeleteVideo(video._id)}>Delete</Button>
+                    <Button icon={<FaEdit />} onClick={() => startEditVideo(video)}></Button>
+                    <Button icon={<MdDeleteForever />} onClick={() => handleVideoDelete(video._id)}></Button>
                   </td>
                 </tr>
-              })
+              )
             }
           </tbody>
         </table>
 
         <div className="crud-new">
           <h2 id="video-form-title">Add new video</h2>
-          <form action="" id="submit-video-changes" onSubmit={() => handleSavevideo({name, url})}>
+          <form action="" id="submit-video-changes" onSubmit={handleSaveVideo}>
             <Input
                 id="video-name" placeholder="Name of the video"
                 required 

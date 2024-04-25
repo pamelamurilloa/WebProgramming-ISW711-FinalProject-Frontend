@@ -8,6 +8,7 @@ import { useSession } from '@hooks/users/useSession'
 import { useReadVideo } from '@hooks/videos/useReadVideo'
 import { useReadPlaylist } from '@hooks/playlists/useReadPlaylist'
 import { useKidPinSession } from '@hooks/users/useKidPinSession'
+import './VideoFeed.scss'
 
 const VideoFeed = () => {
 
