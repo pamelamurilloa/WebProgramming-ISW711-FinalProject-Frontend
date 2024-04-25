@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
-const Button = ({children, icon = null, className = '', ...props}) => {
+const Button = ({children = null, icon = null, className = '', ...props}) => {
     return (
         <button 
             className={classNames('main-button flex', className)}
