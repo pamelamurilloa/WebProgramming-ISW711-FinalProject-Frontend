@@ -4,16 +4,16 @@ const AuthContext = createContext()
 
 export const AuthProvider = (props) => {
     const [user, setUser] = useState(null)
+
     useEffect(
         () => {
             if (user) {
                 localStorage.setItem('user', JSON.stringify(user));
-            } else {
-                localStorage.removeItem('user');
-            }
+            } 
         },
         [user]
     )
+
     useEffect(
         () => {
             const userData = localStorage.getItem('user')
@@ -26,9 +26,11 @@ export const AuthProvider = (props) => {
     return <AuthContext.Provider value={{user, setUser}} {...props}/>
 }
 
+
 // Create a hook
 export const useAuth = () => {
     const context = useContext(AuthContext)
     if (!context) {throw new Error ('Hook must be called inside the Provider Scope') }
     return context
 }
+

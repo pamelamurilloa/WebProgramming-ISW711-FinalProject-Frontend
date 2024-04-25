@@ -1,18 +1,27 @@
-import React from 'react'
-import Header from '../atoms/Header/Header'
-import { Navigate } from 'react-router-dom';
+import React, {useEffect} from 'react'
+import { Navigate, useNavigate} from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext';
-import { Outlet } from 'react-router-dom'
+import Header from '../atoms/Header/Header'
 
-const PrivateLayout = () => {
+const PrivateLayout = ({children, headerLinks, onLinkClick}) => {
 
   const {user} = useAuth()
+  const navigate = useNavigate()
+  
+  useEffect(
+    () => {
+      if(user) {
+        navigate("/avatar");
+      }
+    },
+    [user]
+  )
 
   return user? (
     
     <>
-        <Header/>
-        <Outlet/>
+        <Header links={headerLinks} onLinkClick={(linkId) => onLinkClick(linkId)}/>
+        {children}
     </>
     ) : <Navigate to = "/"/>
 }

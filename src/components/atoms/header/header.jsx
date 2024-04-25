@@ -1,6 +1,7 @@
 import React from 'react'
+import './Header.scss';
 
-function Header() {
+const Header = ({links, onLinkClick }) => {
   return (
     <header className="nav">
         <div className="main-title">
@@ -8,9 +9,19 @@ function Header() {
             <h2 id="kids-logo big">Kids</h2>
         </div>
         <nav>
-            <ul class="nav-links">
-            <li><a className="alternative main-button nav-button" onclick="insertPin(0, true)">Enter as Admin</a></li>
-            <li><a className="alternative main-button nav-button" onclick="logout()">Logout</a></li>
+            <ul className="nav-links">
+              {
+                links?.map(link => 
+                  <li key={link.id}>
+                    <a
+                      className="alternative main-button nav-button"
+                      onClick={() => onLinkClick(link.id)}
+                    >
+                      {link.title}
+                    </a>
+                  </li>
+                )
+              }
             </ul>
         </nav>
     </header>

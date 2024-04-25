@@ -30,4 +30,4 @@ const request = async (method, url, data) => {
 
 const postApi = (...params) => request('POST', ...params)
 const patchApi = (...params) => request('PATCH', ...params)
-export {postApi}
+export {postApi, patchApi}

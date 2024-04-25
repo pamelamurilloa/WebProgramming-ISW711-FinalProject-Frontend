@@ -1,10 +1,10 @@
 import React from 'react'
+import classNames from 'classnames'
 
-
-const Button = ({children, icon}) => {
+const Button = ({children, icon, className, ...props}) => {
     return (
         <button 
-            className={`main-button flex ${className}`}
+            className={classNames('main-button flex', className)}
             type='button'
             {...props}
         >

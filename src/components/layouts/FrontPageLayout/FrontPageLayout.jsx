@@ -5,7 +5,7 @@ import './FrontPageLayout.scss';
 
 function FrontPage({ children }) {
 
-  const {user, setUser} = useAuth()
+  const {user} = useAuth()
   const navigate = useNavigate()
 
   useEffect(

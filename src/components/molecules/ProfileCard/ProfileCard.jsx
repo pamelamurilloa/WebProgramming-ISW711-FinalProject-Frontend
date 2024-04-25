@@ -1,6 +1,11 @@
 import React from 'react'
+
+// Icon Imports
 import { MdDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+
+// Local Imports
+
 
 const ProfileCard = ({editProfile, deleteProfile, askForEntry, profile}) => {
 
