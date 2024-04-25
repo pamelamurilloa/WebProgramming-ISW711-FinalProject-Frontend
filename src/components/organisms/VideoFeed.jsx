@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Navigate, useNavigate} from 'react-router-dom';
 
 // Local imports
 import PrivateLayout from '../layouts/PrivateLayout'
 import PlaylistButton from '../atoms/PlaylistButton'
 import SearchBar from '../molecules/SearchBar'
+import { useSession } from '../../../hooks/users/useSession'
 import { useReadVideo } from '../../../hooks/videos/useReadVideo'
 import { useReadPlaylist } from '../../../hooks/playlists/useReadPlaylist'
 import { useKidPinSession } from '../../../hooks/users/useKidPinSession'
 
 const VideoFeed = () => {
+
+    const {loading, data: user, isError} = useSession()
 
     const [selectedPlaylist, setSelectedPlaylist] = useState('')
 
@@ -20,7 +22,9 @@ const VideoFeed = () => {
 
     useEffect(
         () => {
-          readPlaylists()
+            if (user) {
+                readPlaylists(user._id)
+            }
         },
         []
       )
@@ -67,7 +71,7 @@ const VideoFeed = () => {
             <div id='playlist-buttons' >
                 <ul>
                     {
-                        dataReadPlaylists.data?.map(playlist => {
+                        dataReadPlaylists?.data?.map(playlist => {
                             <PlaylistButton selected={playlist.selected}>
                                 {`${playlist.name} ${playlist.number}`}
                             </PlaylistButton>
@@ -75,17 +79,17 @@ const VideoFeed = () => {
                     }
                 </ul>
             </div>
-            <div class="page-content">
+            <div className="page-content">
                     {
-                        selectedPlaylist.data?.map(video => {
+                        selectedPlaylist?.data?.map(video => {
                             <div className='video-card'>
                                 <h3>${video.name}</h3>
                                 <iframe 
                                     src={`${getEmbedUrl(video.url)}?rel=0&modestbranding=1&loop=1`}
                                     title="${video.name}"
-                                    frameborder="0"
+                                    frameBorder="0"
                                     allow="accelerometer; encrypted-media; gyroscope"
-                                    allowfullscreen>
+                                    allowFullScreen>
                                 </iframe>
                             </div>
                         })
