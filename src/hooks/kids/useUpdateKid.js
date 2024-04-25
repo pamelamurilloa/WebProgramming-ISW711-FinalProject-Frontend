@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import { patchApi } from '../../src/api'
+import { patchApi } from '@src/api'
 
 export const useUpdateKid = () => {
     const [loading, setLoading] = useState('')

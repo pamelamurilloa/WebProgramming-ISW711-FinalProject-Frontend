@@ -1,19 +1,17 @@
-import { postApi } from '../../src/api'
+import { postApi } from '@src/api'
 import {useState} from 'react'
 
-const restUrl = require('../../constants')
-
-export const useCreatePlaylist = () => {
+export const useCreateKid = () => {
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState(null)
     const [isError, setIsError] = useState(false)
 
-    const createPlaylist = async (playlist) => {
+    const createKid = async (kid) => {
         setLoading(true)
 
         try {
-            const playlistCreated = await postApi('/playlists', playlist)
-            setData(playlistCreated)
+            const kidCreated = await postApi('/kids', kid)
+            setData(kidCreated)
             
         } catch {
             setIsError(true);
@@ -23,5 +21,5 @@ export const useCreatePlaylist = () => {
         
     }
 
-    return {loading, data, isError, createPlaylist}
+    return {loading, data, isError, createKid}
 }

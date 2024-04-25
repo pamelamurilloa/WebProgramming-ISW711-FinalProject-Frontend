@@ -1,16 +1,16 @@
-import {restUrl, graphqlUrl} from '../../constants'
+import {restUrl, graphqlUrl} from '@src/constants'
 import {useState} from 'react'
 
-export const useReadPlaylist = () => {
+export const useReadVideo = () => {
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState(null)
     const [isError, setIsError] = useState(false)
 
-    const readPlaylists = async (user_id) => {
+    const readVideos = async (playlistId, query) => {
         setLoading(true)
 
         const res = await fetch(
-            restUrl + `/playlists/user/${user_id}`, 
+            restUrl + `/playlists/${playlistId}`, 
             {
                 method: 'GET',
             }
@@ -19,8 +19,8 @@ export const useReadPlaylist = () => {
         setLoading(false)
     
         if (res.status === 200) {
-            const playlists = await res.json()
-            setData(playlists)
+            const videos = await res.json()
+            setData(videos)
             
         } else {
             setIsError(true);
@@ -29,12 +29,12 @@ export const useReadPlaylist = () => {
     }
 
     // GRAPHQL
-    // const readKids = async (user_id) => { 
+    // const readVideos = async (user_id) => { 
     //     setLoading(true);
 
     //     try {
     //         const { data } = await refetch({ userId: user_id });
-    //         setData(data.kids);
+    //         setData(data.videos);
     //     } catch (error) {
     //         console.error('Error fetching data:', error);
     //         setIsError(true);
@@ -43,5 +43,5 @@ export const useReadPlaylist = () => {
     //     setLoading(false);
     // }
 
-    return {loading, data, isError, readPlaylists}
+    return {loading, data, isError, readVideos}
 }

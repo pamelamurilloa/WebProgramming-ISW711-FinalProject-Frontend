@@ -1,18 +1,17 @@
-import {restUrl} from '../../constants'
-import { patchApi } from '../../src/api'
+import { postApi } from '@src/api'
 import {useState} from 'react'
 
-export const useUpdatePlaylist = () => {
+export const useCreatePlaylist = () => {
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState(null)
     const [isError, setIsError] = useState(false)
 
-    const updatePlaylist = async (playlist) => {
+    const createPlaylist = async (playlist) => {
         setLoading(true)
 
         try {
-            const playlistUpdated = await patchApi(`/playlists/${playlist._id}`, playlist)
-            setData(playlistUpdated)
+            const playlistCreated = await postApi('/playlists', playlist)
+            setData(playlistCreated)
             
         } catch {
             setIsError(true);
@@ -22,5 +21,5 @@ export const useUpdatePlaylist = () => {
         
     }
 
-    return {loading, data, isError, updatePlaylist}
+    return {loading, data, isError, createPlaylist}
 }

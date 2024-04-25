@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 
 // Local imports
-import PrivateLayout from '../layouts/PrivateLayout'
-import PlaylistButton from '../atoms/PlaylistButton'
-import SearchBar from '../molecules/SearchBar'
-import { useSession } from '../../../hooks/users/useSession'
-import { useReadVideo } from '../../../hooks/videos/useReadVideo'
-import { useReadPlaylist } from '../../../hooks/playlists/useReadPlaylist'
-import { useKidPinSession } from '../../../hooks/users/useKidPinSession'
+import PrivateLayout from '@layouts/PrivateLayout'
+import PlaylistButton from '@atoms/PlaylistButton'
+import SearchBar from '@molecules/SearchBar'
+import { useSession } from '@hooks/users/useSession'
+import { useReadVideo } from '@hooks/videos/useReadVideo'
+import { useReadPlaylist } from '@hooks/playlists/useReadPlaylist'
+import { useKidPinSession } from '@hooks/users/useKidPinSession'
 
 const VideoFeed = () => {
 
@@ -81,7 +81,7 @@ const VideoFeed = () => {
             </div>
             <div className="page-content">
                     {
-                        selectedPlaylist?.data?.map(video => {
+                        dataReadVideos?.data?.map(video => {
                             <div className='video-card'>
                                 <h3>${video.name}</h3>
                                 <iframe 

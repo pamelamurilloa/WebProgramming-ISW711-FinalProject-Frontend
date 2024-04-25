@@ -1,17 +1,18 @@
-import { postApi } from '../../src/api'
+import {restUrl} from '@src/constants'
+import { patchApi } from '@src/api'
 import {useState} from 'react'
 
-export const useCreateKid = () => {
+export const useUpdatePlaylist = () => {
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState(null)
     const [isError, setIsError] = useState(false)
 
-    const createKid = async (kid) => {
+    const updatePlaylist = async (playlist) => {
         setLoading(true)
 
         try {
-            const kidCreated = await postApi('/kids', kid)
-            setData(kidCreated)
+            const playlistUpdated = await patchApi(`/playlists/${playlist._id}`, playlist)
+            setData(playlistUpdated)
             
         } catch {
             setIsError(true);
@@ -21,5 +22,5 @@ export const useCreateKid = () => {
         
     }
 
-    return {loading, data, isError, createKid}
+    return {loading, data, isError, updatePlaylist}
 }

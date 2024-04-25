@@ -6,17 +6,20 @@ import { IoMdAddCircle } from "react-icons/io";
 
 
 // Local imports
-import Button from '../atoms/Button'
-import Submit from '../atoms/Submit'
-import Input from '../atoms/Input'
-import PopUp from '../molecules/PopUp'
-import PlaylistForm from '../molecules/PlaylistForm'
-import { useReadVideo } from '../../../hooks/videos/useReadVideo'
-import { useUpdateVideo } from '../../../hooks/videos/useUpdateVideo'
-import { useCreateVideo } from '../../../hooks/videos/useCreateVideo'
-import { useDeleteVideo } from '../../../hooks/videos/useDeleteVideo'
-import { useReadPlaylist } from '../../../hooks/playlists/useReadPlaylist'
-import { useSession } from '../../../hooks/users/useSession'
+import Button from '@atoms/Button'
+import Submit from '@atoms/Submit'
+import Input from '@atoms/Input'
+import PopUp from '@molecules/PopUp'
+import PlaylistForm from '@molecules/PlaylistForm'
+import { useReadVideo } from '@hooks/videos/useReadVideo'
+import { useUpdateVideo } from '@hooks/videos/useUpdateVideo'
+import { useCreateVideo } from '@hooks/videos/useCreateVideo'
+import { useDeleteVideo } from '@hooks/videos/useDeleteVideo'
+import { useReadPlaylist } from '@hooks/playlists/useReadPlaylist'
+import { useSession } from '@hooks/users/useSession'
+import { useDeletePlaylist } from '@src/hooks/playlists/useDeletePlaylist';
+import { useCreatePlaylist } from '@src/hooks/playlists/useCreatePlaylist';
+import { useUpdatePlaylist } from '@src/hooks/playlists/useUpdatePlaylist';
 
 
 const PlaylistCRUD = () => {
@@ -38,7 +41,9 @@ const PlaylistCRUD = () => {
   const {loading:loadingUpdate, data:dataUpdate, isError:isErrorUpdate, updateVideo} = useUpdateVideo();
   const {loading:loadingRead, data:dataReadVideos, isError:isErrorRead, readVideos} = useReadVideo();
 
-  
+  const {loading:loadingDeletePlaylist, data:dataDeletePlaylist, isError:isErrorDeletePlaylist, deletePlaylist} = useDeletePlaylist();
+  const {loading:loadingCreatePlaylist, data:dataCreatePlaylist, isError:isErrorCreatePlaylist, createPlaylist} = useCreatePlaylist();
+  const {loading:loadingUpdatePlaylist, data:dataUpdatePlaylist, isError:isErrorUpdatePlaylist, updatePlaylist} = useUpdatePlaylist();
   const {loading:loadingReadPlaylist, data:dataReadPlaylists, isError:isErrorReadPlaylist, readPlaylists} = useReadPlaylist();
 
   useEffect(
@@ -123,7 +128,7 @@ const PlaylistCRUD = () => {
   return (
     <section id="video-section">
       <h3>Playlists</h3>
-      <form className="dropdown" onSubmit={handlePlaylistChange}>
+      <form className="dropdown">
         <label htmlFor="playlist">Select Playlist:</label>
         <select className="input-form" id="playlist" name="playlist" onChange={handlePlaylistChange}>
           {

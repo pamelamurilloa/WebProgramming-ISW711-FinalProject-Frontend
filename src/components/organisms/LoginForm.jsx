@@ -2,14 +2,14 @@ import {Link} from 'react-router-dom'
 import React, {useEffect, useState} from 'react'
 
 // Local imports
-import Input from '../atoms/Input'
-import Submit from '../atoms/Submit'
-import FrontPageLayout from '../layouts/FrontPageLayout/FrontPageLayout'
-import PopUp from '../molecules/PopUp'
-import Button from '../atoms/Button'
-import { useAuth } from '../../contexts/authContext'
-import { useSession } from '../../../hooks/users/useSession'
-import { useCode} from '../../../hooks/users/useCode'
+import Input from '@atoms/Input'
+import Submit from '@atoms/Submit'
+import FrontPageLayout from '@layouts/FrontPageLayout/FrontPageLayout'
+import PopUp from '@molecules/PopUp'
+import Button from '@atoms/Button'
+import { useAuth } from '@contexts/authContext'
+import { useSession } from '@hooks/users/useSession'
+import { useCode} from '@hooks/users/useCode'
 
 const LoginForm = () => {
 

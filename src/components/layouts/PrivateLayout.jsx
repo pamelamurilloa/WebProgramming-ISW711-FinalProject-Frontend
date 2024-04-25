@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import { Navigate, useNavigate} from 'react-router-dom';
-import { useAuth } from '../../contexts/authContext';
-import Header from '../atoms/Header/Header'
+import { useAuth } from '@contexts/authContext';
+import Header from '@atoms/Header/Header'
 
 const PrivateLayout = ({children, headerLinks, onLinkClick}) => {
 

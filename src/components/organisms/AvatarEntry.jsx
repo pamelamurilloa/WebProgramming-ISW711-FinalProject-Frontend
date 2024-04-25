@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 // Local Imports
-import Button from '../atoms/Button'
-import PrivateLayout from '../layouts/PrivateLayout'
-import PopUp from '../molecules/PopUp'
-import PinForm from '../molecules/PinForm'
-import ProfileCard from '../molecules/ProfileCard/ProfileCard'
-import { useReadKid } from '../../../hooks/kids/useReadKid'
-import { useAuth } from '../../contexts/authContext'
-import { useSession } from '../../../hooks/users/useSession'
-import { useKidPinSession } from '../../../hooks/users/useKidPinSession'
-import { useUserPinSession } from '../../../hooks/users/useUserPinSession'
+import Button from '@atoms/Button'
+import PrivateLayout from '@layouts/PrivateLayout'
+import PopUp from '@molecules/PopUp'
+import PinForm from '@molecules/PinForm'
+import ProfileCard from '@molecules/ProfileCard/ProfileCard'
+import { useReadKid } from '@hooks/kids/useReadKid'
+import { useAuth } from '@contexts/authContext'
+import { useSession } from '@hooks/users/useSession'
+import { useKidPinSession } from '@hooks/users/useKidPinSession'
+import { useUserPinSession } from '@hooks/users/useUserPinSession'
 
 
 const AvatarEntry = () => {

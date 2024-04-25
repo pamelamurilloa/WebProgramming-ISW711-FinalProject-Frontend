@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import Input from '../atoms/Input'
-import Submit from '../atoms/Submit'
-import Button from '../atoms/Button'
+import Input from '@atoms/Input'
+import Submit from '@atoms/Submit'
+import Button from '@atoms/Button'
 
 
 const PinForm = ({loginTry, children}) => {

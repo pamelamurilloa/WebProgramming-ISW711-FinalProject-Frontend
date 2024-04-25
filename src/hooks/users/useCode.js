@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { postApi } from '../../src/api'
+import { postApi } from '@src/api'
 
 export const useCode = () => {
     const [loading, setLoading] = useState(false)

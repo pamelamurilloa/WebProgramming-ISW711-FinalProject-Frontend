@@ -1,4 +1,4 @@
-import {restUrl, graphqlUrl} from '../../constants'
+import {restUrl, graphqlUrl} from '@src/constants'
 import {useState} from 'react'
 
 export const useReadKid = () => {

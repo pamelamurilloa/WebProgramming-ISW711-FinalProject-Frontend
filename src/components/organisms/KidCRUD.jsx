@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 
 // local imports
-import Button from '../atoms/Button'
-import KidsForm from '../molecules/KidsForm'
-import ProfileCard from '../molecules/ProfileCard/ProfileCard'
-import { useCreateKid } from '../../../hooks/kids/useCreateKid'
-import { useDeleteKid } from '../../../hooks/kids/useDeleteKid'
-import { useUpdateKid } from '../../../hooks/kids/useUpdateKid'
-import { useReadKid } from '../../../hooks/kids/useReadKid'
-import EmptyProfile from '../molecules/ProfileCard/EmptyProfile'
+import Button from '@atoms/Button'
+import KidsForm from '@molecules/KidsForm'
+import ProfileCard from '@molecules/ProfileCard/ProfileCard'
+import { useCreateKid } from '@hooks/kids/useCreateKid'
+import { useDeleteKid } from '@hooks/kids/useDeleteKid'
+import { useUpdateKid } from '@hooks/kids/useUpdateKid'
+import { useReadKid } from '@hooks/kids/useReadKid'
+import EmptyProfile from '@molecules/ProfileCard/EmptyProfile'
 
 const KidCRUD = () => {
 

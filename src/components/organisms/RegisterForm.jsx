@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react'
 import {Link, Navigate} from 'react-router-dom'
 
 // Local imports
-import Input from '../atoms/Input'
-import Submit from '../atoms/Submit'
-import FrontPageLayout from '../layouts/FrontPageLayout/FrontPageLayout'
-import { useRegister } from '../../../hooks/users/useRegister'
+import Input from '@atoms/Input'
+import Submit from '@atoms/Submit'
+import FrontPageLayout from '@layouts/FrontPageLayout/FrontPageLayout'
+import { useRegister } from '@hooks/users/useRegister'
 
 const RegisterForm = () => {
 

@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { Navigate, useNavigate} from 'react-router-dom';
 
 // Local imports
-import { postApi } from '../../src/api'
+import { postApi } from '@src/api'
 
-export const useKidPinSession = () => {
+export const useUserPinSession = () => {
 
     const navigate = useNavigate()
 
@@ -12,27 +12,29 @@ export const useKidPinSession = () => {
     const [data, setData] = useState(null)
     const [isError, setIsError] = useState(false)
 
-    const login = async (childId, pin) => {
+    const login = async (userId, pin) => {
         setLoading(true)
         setIsError(false)
 
         try {
-            const kid = await postApi('/session/kids', {childId, pin})
-            localStorage.setItem('kid', 'true')
-            setData(kid)
+            const user = await postApi('/session/login/pin', {userId, pin})
+            localStorage.setItem('admin', 'true')
+            setData(user)
             
-        } catch {
+        } catch (err) {
+            console.log(err)
             setIsError(true)
         } finally {
             setLoading(false)
         }
         
     }
-
+    
     const logout = async () => {
-        localStorage.removeItem('kid')
+        localStorage.removeItem('admin')
         navigate("/avatar");
     }
+
 
     return {loading, data, isError, login, logout}
 }

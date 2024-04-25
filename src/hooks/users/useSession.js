@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { postApi } from '../../src/api'
-import {useAuth} from '../../src/contexts/authContext'
+import { postApi } from '@src/api'
+import {useAuth} from '@src/contexts/authContext'
 
 export const useSession = () => {
     const [loading, setLoading] = useState(false)

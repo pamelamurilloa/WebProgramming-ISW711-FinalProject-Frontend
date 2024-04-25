@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useReadKid } from '../../../hooks/kids/useReadKid'
+import { useReadKid } from '@hooks/kids/useReadKid'
 
 const PlaylistForm = (onSave) => {
 

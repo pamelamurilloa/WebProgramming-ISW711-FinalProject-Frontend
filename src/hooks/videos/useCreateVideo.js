@@ -1,6 +1,6 @@
-import {restUrl} from '../../constants'
+import {restUrl} from '@src/constants'
 import {useState} from 'react'
-import { postApi } from '../../src/api'
+import { postApi } from '@src/api'
 
 export const useCreateVideo = () => {
     const [loading, setLoading] = useState(false)

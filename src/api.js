@@ -1,4 +1,4 @@
-import {restUrl} from '../constants'
+import {restUrl} from './constants'
 
 const request = async (method, url, data) => {
 
