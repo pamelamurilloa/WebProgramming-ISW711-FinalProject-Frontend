@@ -1,4 +1,3 @@
-import {restUrl} from '../../constants'
 import { postApi } from '../../src/api'
 import {useState} from 'react'
 

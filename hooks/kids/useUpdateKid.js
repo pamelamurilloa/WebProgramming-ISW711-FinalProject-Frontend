@@ -1,5 +1,5 @@
-import {restUrl} from '../../constants'
 import {useState} from 'react'
+import { patchApi } from '../../src/api'
 
 export const useUpdateKid = () => {
     const [loading, setLoading] = useState('')
@@ -9,22 +9,15 @@ export const useUpdateKid = () => {
     const updateKid = async (kid) => {
         setLoading(true)
 
-        const res = await fetch(
-            restUrl + `/kids/${kid._id}`, 
-            {
-                method: 'PATCH',
-                body: kid
-            }
-        )
 
-        setLoading(false)
-    
-        if (res.status === 200) {
-            const kidUpdated = await res.json()
+        try {
+            const kidUpdated = await patchApi(`/kids/${kid._id}`, kid)
             setData(kidUpdated)
             
-        } else {
+        } catch {
             setIsError(true);
+        } finally {
+            setLoading(false)
         }
         
     }

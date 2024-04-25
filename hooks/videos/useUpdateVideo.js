@@ -9,22 +9,14 @@ export const useUpdateVideo = () => {
     const updateVideo = async (playlistId, video) => {
         setLoading(true)
 
-        const res = await fetch(
-            restUrl + `/playlists/${playlistId}/${video._id}`, 
-            {
-                method: 'PATCH',
-                body: video
-            }
-        )
-
-        setLoading(false)
-    
-        if (res.status === 200) {
-            const videoUpdated = await res.json()
+        try {
+            const videoUpdated = await postApi(`/playlists/${playlistId}/${video._id}`, video)
             setData(videoUpdated)
             
-        } else {
+        } catch {
             setIsError(true);
+        } finally {
+            setLoading(false)
         }
         
     }

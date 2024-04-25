@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import {restUrl} from '../../constants'
 import {postApi} from '../../src/api'
 
 export const useRegister = () => {

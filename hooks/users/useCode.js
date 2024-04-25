@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import {restUrl} from '../../constants'
 import { postApi } from '../../src/api'
 
 export const useCode = () => {
@@ -18,7 +17,7 @@ export const useCode = () => {
             
         } catch {
             setIsError(true);
-            
+
         } finally {
             setLoading(false)
         }

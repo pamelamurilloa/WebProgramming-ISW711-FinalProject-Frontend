@@ -1,4 +1,5 @@
 import {restUrl} from '../../constants'
+import { patchApi } from '../../src/api'
 import {useState} from 'react'
 
 export const useUpdatePlaylist = () => {
@@ -9,22 +10,14 @@ export const useUpdatePlaylist = () => {
     const updatePlaylist = async (playlist) => {
         setLoading(true)
 
-        const res = await fetch(
-            restUrl + `/playlists/${playlist._id}`, 
-            {
-                method: 'PATCH',
-                body: playlist
-            }
-        )
-
-        setLoading(false)
-    
-        if (res.status === 200) {
-            const playlistUpdated = await res.json()
+        try {
+            const playlistUpdated = await postApi(`/playlists/${playlist._id}`, playlist)
             setData(playlistUpdated)
             
-        } else {
+        } catch {
             setIsError(true);
+        } finally {
+            setLoading(false)
         }
         
     }
