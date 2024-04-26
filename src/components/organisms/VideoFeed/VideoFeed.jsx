@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 
 // Local imports
 import PrivateLayout from '@layouts/PrivateLayout'
@@ -18,6 +18,7 @@ const VideoFeed = () => {
     const {logout} = useKidPinSession();
 
     const [kid, setKid] = useState(null) 
+    const [query, setQuery] = useState('') 
 
     const {loading:loadingReadVideo, data:dataReadVideos, isError:isErrorReadVideo, readVideos} = useReadVideo()
     const {loading:loadingReadPlaylist, data:dataReadPlaylists, isError:isErrorReadPlaylist, readPlaylists} = useReadPlaylist()
@@ -44,29 +45,43 @@ const VideoFeed = () => {
             }
         },
         []
-      )
+    )
 
-      useEffect(
-        () => {
-          if (dataReadPlaylists) {
-            setSelectedPlaylistId(dataReadPlaylists[0]?._id);
-          }
-        },
-        [dataReadPlaylists]
-      )
+    useEffect(
+    () => {
+        if (dataReadPlaylists) {
+        setSelectedPlaylistId(dataReadPlaylists[0]?._id);
+        }
+    },
+    [dataReadPlaylists]
+    )
     
-      useEffect(
-        () => {
-          if (selectedPlaylistId) {
-            readVideos(selectedPlaylistId)
-          }
-        },
-        [selectedPlaylistId]
-      )
-
-    const onSearch = (query) => {
+    useEffect(
+    () => {
+        if (selectedPlaylistId) {
         readVideos(selectedPlaylistId)
-    }
+        }
+    },
+    [selectedPlaylistId]
+    )
+
+
+    const filteredVideos = useMemo(
+        () => {
+            if (!query) {
+                return dataReadVideos
+            } else {
+                const formatedQuery = query.toLowerCase()
+                return dataReadVideos
+                    .filter(
+                        (video) => 
+                        video.name.toLowerCase().includes( formatedQuery )
+                     || video.description.toLowerCase().includes( formatedQuery )
+            ) 
+            }
+        },
+        [query, dataReadVideos]
+    );
 
     // Header and link manipulation
     const headerLinks = [
@@ -95,22 +110,9 @@ const VideoFeed = () => {
         setSelectedPlaylistId(value)
       }
 
-      console.log('videos read data', dataReadVideos)
-
     return (
         <PrivateLayout headerLinks={headerLinks} onLinkClick={handleLinkClick}>
-            <SearchBar className="little" onSearch={onSearch}/>
-            {/* <div id='playlist-buttons' >
-                <ul>
-                    {
-                        dataReadPlaylists?.map(playlist => {
-                            <PlaylistButton selected={playlist.selected}>
-                                {`${playlist.name} ${playlist.number}`}
-                            </PlaylistButton>
-                        })
-                    }
-                </ul>
-            </div> */}
+            <SearchBar className="little" onSearch={setQuery}/>
 
             <form className="dropdown">
                 <label htmlFor="playlist">Select Playlist:</label>
@@ -133,9 +135,14 @@ const VideoFeed = () => {
                 </select>
             </form>
 
+            {
+                query &&
+                <h2>Filtered by: {query}</h2>
+            }
             <div className="page-content">
+
                     {
-                        dataReadVideos?.map(video => 
+                        filteredVideos?.map(video => 
                             <div className='video-card' key={video._url}>
                                 <h3>{video.name}</h3>
                                 <iframe 
@@ -144,6 +151,7 @@ const VideoFeed = () => {
                                     allow="accelerometer; encrypted-media; gyroscope"
                                     allowFullScreen>
                                 </iframe>
+                                <p>{video.description}</p>
                             </div>
                         )
                     }
