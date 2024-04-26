@@ -30,6 +30,11 @@ const request = async (method, url, data) => {
         return res.json()
     }
 
+    if (res.status === 401) {
+        localStorage.removeItem('user')
+        window.location.href = "/"; 
+    }
+
     console.log(res)
     throw new Error('Error sending request')
 }

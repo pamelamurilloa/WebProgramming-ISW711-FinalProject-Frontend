@@ -12,8 +12,7 @@ export const useRegister = () => {
 
         try {
 
-            const user = await postApi('/users', {...newUser, cellphone: newUser.formatedCellphone});
-            const playlist = await postApi('/playlists', {name: "General", userId: user._id});
+            const user = await postApi('/users/register', {...newUser, cellphone: newUser.formatedCellphone});
         
             setData(user)
             

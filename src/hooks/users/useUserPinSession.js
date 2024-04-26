@@ -17,7 +17,7 @@ export const useUserPinSession = () => {
         setIsError(false)
 
         try {
-            const user = await postApi('/session/login/pin', {userId, pin})
+            const user = await postApi('/session/pin', {userId, pin})
             localStorage.setItem('admin', 'true')
             setData(user)
             
