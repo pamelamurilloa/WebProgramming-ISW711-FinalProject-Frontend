@@ -42,7 +42,7 @@ const RegisterForm = () => {
             age--;
         }
 
-        if(email && password && repPassword && pin && name && lastName && birthday && cellphone && password === repPassword && !isNaN(pin) && age >= 18) {
+        if(email && password && repPassword && pin && name && lastName && birthday && cellphone && password === repPassword && !isNaN(parseInt(pin)) && age >= 18) {
             let formatedCellphone = cellphone.replace(/-/g, "")
 
             register({email, password, pin, name, lastName, birthday, formatedCellphone})

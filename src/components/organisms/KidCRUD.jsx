@@ -12,6 +12,7 @@ import EmptyProfile from '@molecules/ProfileCard/EmptyProfile'
 import PopUp from '../molecules/PopUp'
 import { useAuth } from '@src/contexts/authContext'
 import '@components/scssGlobal/cruds.scss'
+import '@components/scssGlobal/utils.scss'
 
 
 const KidCRUD = () => {
@@ -47,9 +48,41 @@ const KidCRUD = () => {
     const deleteProfile = (profileId) => {
         //Confirmation message
         deleteKid(profileId)
-        readKids(user._id)
     }
     
+    useEffect(
+        () => {
+            if (dataCreate) {
+                readKids(user._id)
+                setProfileToEdit(null)
+                setOpenForm(false)
+            }
+        },
+        [dataCreate]
+    )
+
+    useEffect(
+        () => {
+            if (dataUpdate) {
+                readKids(user._id)
+                setProfileToEdit(null)
+                setOpenForm(false)
+            }
+        },
+        [dataUpdate]
+    )
+
+    useEffect(
+        () => {
+            if (dataDelete) {
+                readKids(user._id)
+                setProfileToEdit(null)
+                setOpenForm(false)
+            }
+        },
+        [dataDelete]
+    )
+
     const handleSave = (profile) => {
         if (profile.name && profile.age && profile.avatar && !isNaN(profile.pin) ) {
             if (profileToEdit) {
@@ -58,10 +91,6 @@ const KidCRUD = () => {
                 profile.userId = user._id
                 createKid(profile)
             }
-            
-            readKids(user._id)
-            setProfileToEdit(null)
-            setOpenForm(false)
         }
     }
 

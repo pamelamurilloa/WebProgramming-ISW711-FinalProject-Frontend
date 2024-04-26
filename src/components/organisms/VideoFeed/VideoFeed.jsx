@@ -122,9 +122,7 @@ const VideoFeed = () => {
                     dataReadPlaylists
                         ?.filter(
                             (playlist) => 
-                            playlist.kids.find(
-                                (item) => item._id === kid._id
-                            )
+                            playlist.kids.includes(kid._id)
                         )
                         .map((playlist) => (
                             <option key={playlist._id} value={playlist._id} >
@@ -143,7 +141,7 @@ const VideoFeed = () => {
 
                     {
                         filteredVideos?.map(video => 
-                            <div className='video-card' key={video._url}>
+                            <div className='video-card' key={video._id}>
                                 <h3>{video.name}</h3>
                                 <iframe 
                                     src={`${getEmbedUrl(video.url)}?rel=0&modestbranding=1&loop=1`}

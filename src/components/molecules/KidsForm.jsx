@@ -18,10 +18,6 @@ const KidsForm = ({onSave, onCancel, kid = null}) => {
             avatar:imageNumber,
             ... (kid && {_id:kid._id})
         })
-        setPin()
-        setName()
-        setAge()
-
     }
 
     const [imageNumber, setImageNumber] = useState(parseInt(kid?.avatar) || 1);

@@ -5,6 +5,7 @@ import Submit from '../atoms/Submit'
 import Button from '../atoms/Button'
 import { useAuth } from '@src/contexts/authContext'
 
+
 const PlaylistForm = ({onSave, goBack, playlistToEdit = null}) => {
 
     const [name, setName] = useState(playlistToEdit?.name || '')
@@ -51,8 +52,7 @@ const PlaylistForm = ({onSave, goBack, playlistToEdit = null}) => {
                 {
                     kids?.map(kid => {
                         return (
-                            <div key={kid._id}>                            
-                                <label htmlFor={kid._id}>{kid.name}</label>
+                            <div className='flex' key={kid._id}>                            
                                 <Input
                                     checked={selectedKids[kid._id] || false}
                                     onChange={(isChecked) => handleCheckBox(kid._id, isChecked)}
@@ -60,6 +60,7 @@ const PlaylistForm = ({onSave, goBack, playlistToEdit = null}) => {
                                     id={kid._id}
                                     value={kid._id}
                                 />
+                                <label htmlFor={kid._id}>{kid.name}</label>
                             </div>
                         )        
                     })
