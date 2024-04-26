@@ -1,3 +1,4 @@
+import { deleteApi } from '@src/api'
 import {restUrl} from '@src/constants'
 import {useState} from 'react'
 
@@ -9,21 +10,14 @@ export const useDeletePlaylist = () => {
     const deletePlaylist = async (playlistId) => {
         setLoading(true)
 
-        const res = await fetch(
-            restUrl + `/playlists/${playlistId}`, 
-            {
-                method: 'DELETE',
-            }
-        )
-
-        setLoading(false)
-    
-        if (res.status === 200) {
-            const playlistDeleted = await res.json()
+        try {
+            const playlistDeleted = await deleteApi(`/playlists/${playlistId}`)
             setData(playlistDeleted)
             
-        } else {
+        } catch {
             setIsError(true);
+        } finally {
+            setLoading(false)
         }
         
     }

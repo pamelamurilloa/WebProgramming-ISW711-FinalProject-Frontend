@@ -26,7 +26,7 @@ import { useAuth } from '@src/contexts/authContext';
 
 const PlaylistCRUD = () => {
 
-  const {user, setUser} = useAuth()
+  const {user} = useAuth()
 
   const [name, setName] = useState('')
   const [url, setUrl] = useState('')

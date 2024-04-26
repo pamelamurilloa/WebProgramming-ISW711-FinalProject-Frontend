@@ -1,3 +1,4 @@
+import { getApi } from '@src/api'
 import {restUrl, graphqlUrl} from '@src/constants'
 import {useState} from 'react'
 
@@ -9,39 +10,17 @@ export const useReadPlaylist = () => {
     const readPlaylists = async (user_id) => {
         setLoading(true)
 
-        const res = await fetch(
-            restUrl + `/playlists/user/${user_id}`, 
-            {
-                method: 'GET',
-            }
-        )
-
-        setLoading(false)
-    
-        if (res.status === 200) {
-            const playlists = await res.json()
+        try {
+            const playlists = await getApi(`/playlists/user/${user_id}`)
             setData(playlists)
             
-        } else {
+        } catch {
             setIsError(true);
+        } finally {
+            setLoading(false)
         }
         
     }
-
-    // GRAPHQL
-    // const readKids = async (user_id) => { 
-    //     setLoading(true);
-
-    //     try {
-    //         const { data } = await refetch({ userId: user_id });
-    //         setData(data.kids);
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //         setIsError(true);
-    //     }
-
-    //     setLoading(false);
-    // }
 
     return {loading, data, isError, readPlaylists}
 }

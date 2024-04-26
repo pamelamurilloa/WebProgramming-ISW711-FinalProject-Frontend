@@ -2,9 +2,9 @@ import {useState} from 'react'
 import { patchApi } from '@src/api'
 
 export const useUpdateKid = () => {
-    const [loading, setLoading] = useState('')
-    const [data, setData] = useState('')
-    const [isError, setIsError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState(null)
+    const [isError, setIsError] = useState(false)
 
     const updateKid = async (kid) => {
         setLoading(true)

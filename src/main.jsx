@@ -27,29 +27,9 @@ const router = createBrowserRouter(
       <Route path="avatar" element={<AvatarEntry />}/>
       <Route path="videoFeed" element={<VideoFeed />}/>
       <Route path="administration" element={<Administration />}/>
-
-      {/* <Route path="contact" element={<Contact />} /> */}
-      {/* <Route
-        path="dashboard"
-        element={<Dashboard />}
-        loader={({ request }) =>
-          fetch("/api/dashboard.json", {
-            signal: request.signal,
-          })
-        }
-      />
-      <Route element={<AuthLayout />}>
-        <Route
-          path="login"
-          element={<Login />}
-          loader={redirectIfUser}
-        />
-        <Route path="logout" action={logoutUser} />
-      </Route> */}
     </Route>
   )
 );
-
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

@@ -18,8 +18,8 @@ const AvatarEntry = () => {
 
     const navigate = useNavigate()
 
-    const {user, setUser} = useAuth();
-    const {loading, data, isError, login, logout} = useSession()
+    const {user} = useAuth();
+    const {logout} = useSession()
 
     const {loading:loadingKidLogin, data:dataReadKidLogin, isError:isErrorKidLogin, login: kidLogin} = useKidPinSession();
 
@@ -38,15 +38,6 @@ const AvatarEntry = () => {
             }
         },
         []
-    )
-
-    useEffect(
-        () => {
-            if (data) {
-                setUser(user);
-            }
-        },
-        [data]
     )
 
     useEffect(

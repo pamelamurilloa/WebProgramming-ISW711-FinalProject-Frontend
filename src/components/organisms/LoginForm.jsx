@@ -37,7 +37,7 @@ const LoginForm = () => {
         () => {
             if (dataCode) {
                 setIsCodeSent(false)
-                setUser(loggedUser)
+                setUser(dataCode)
             }
         },
         [dataCode]

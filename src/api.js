@@ -9,12 +9,18 @@ const request = async (method, url, data) => {
         }
     }
 
+    const headers = {"Content-Type": "application/json"}
+    const user = localStorage.getItem('user')
+    if (user) {
+        const {token} = JSON.parse(user)
+        headers.Authorization = `Bearer ${token}`
+    }
+    
+
     const res = await fetch(
         restUrl + url, 
         {
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers,
             method,
             ...params
         }
@@ -30,4 +36,12 @@ const request = async (method, url, data) => {
 
 const postApi = (...params) => request('POST', ...params)
 const patchApi = (...params) => request('PATCH', ...params)
-export {postApi, patchApi}
+const deleteApi = (...params) => request('DELETE', ...params)
+const getApi = (...params) => request('GET', ...params)
+
+export {
+    postApi, 
+    patchApi, 
+    deleteApi, 
+    getApi
+}

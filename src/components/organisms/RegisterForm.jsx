@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Link, Navigate} from 'react-router-dom'
+import {Link, Navigate, useNavigate} from 'react-router-dom'
 
 // Local imports
 import Input from '@atoms/Input'
@@ -8,6 +8,8 @@ import FrontPageLayout from '@layouts/FrontPageLayout/FrontPageLayout'
 import { useRegister } from '@hooks/users/useRegister'
 
 const RegisterForm = () => {
+
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -20,25 +22,32 @@ const RegisterForm = () => {
     
     const {loading, data, isError, register} = useRegister();
 
+    useEffect(
+        () => {
+            if (data) {
+                navigate("/login")
+            }
+            
+        },
+        [data]
+    )
+
     const handleRegister = (event) => {
         event.preventDefault()
-        // let today = new Date();
-        // let date = new Date(birthday);
-        // let age = today.getFullYear() - date.getFullYear();
-        // let monthDiff = today.getMonth() - date.getMonth();
-        // if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < date.getDate())) {
-        //     age--;
-        // }
+        let today = new Date();
+        let date = new Date(birthday);
+        let age = today.getFullYear() - date.getFullYear();
+        let monthDiff = today.getMonth() - date.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < date.getDate())) {
+            age--;
+        }
 
-        // if(email, password, repPassword, pin, name, lastName, birthday, cellphone && password === repPassword && !isNaN(pin) && age >= 18) {
-        //     let formatedCellphone = cellphone.replace(/-/g, "")
+        if(email && password && repPassword && pin && name && lastName && birthday && cellphone && password === repPassword && !isNaN(pin) && age >= 18) {
+            let formatedCellphone = cellphone.replace(/-/g, "")
 
-        //     register({email, password, pin, name, lastName, birthday, formatedCellphone})
-        //     if (data) {
-        //         <Navigate replace to ="/login"/>
-        //     }
-        // }
-        register({email:'pamelamurilloa@gmail.com', password: '123', pin: '123456', name: 'Pamela', lastName: 'Murillo', birthday:'2004-01-30', formatedCellphone:'50685519357'})
+            register({email, password, pin, name, lastName, birthday, formatedCellphone})
+        }
+        //test register({email:'pamelamurilloa@gmail.com', password: '123', pin: '123456', name: 'Pamela', lastName: 'Murillo', birthday:'2004-01-30', formatedCellphone:'50685519357'})
     }
 
   return (

@@ -1,3 +1,4 @@
+import { deleteApi } from '@src/api'
 import {restUrl} from '@src/constants'
 import {useState} from 'react'
 
@@ -9,24 +10,17 @@ export const useDeleteKid = () => {
     const deleteKid = async (kidId) => {
         setLoading(true)
 
-        const res = await fetch(
-            restUrl + `/kids/${kidId}`, 
-            {
-                method: 'DELETE',
-            }
-        )
-
-        setLoading(false)
-    
-        if (res.status === 200) {
-            const kidDeleted = await res.json()
+        try {
+            const kidDeleted = await deleteApi(`/kids/${kidId}`)
             setData(kidDeleted)
             
-        } else {
+        } catch {
             setIsError(true);
+        } finally {
+            setLoading(false)
         }
-        
-    }
 
+    }
+    
     return {loading, data, isError, deleteKid}
 }

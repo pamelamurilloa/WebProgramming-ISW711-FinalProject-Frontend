@@ -1,4 +1,5 @@
-import {restUrl, graphqlUrl} from '@src/constants'
+import { getApi } from '@src/api'
+import {restUrl} from '@src/constants'
 import {useState} from 'react'
 
 export const useReadKid = () => {
@@ -9,39 +10,17 @@ export const useReadKid = () => {
     const readKids = async (userId) => {
         setLoading(true)
 
-        const res = await fetch(
-            restUrl + `/kids/user/${userId}`, 
-            {
-                method: 'GET',
-            }
-        )
-
-        setLoading(false)
-    
-        if (res.status === 200) {
-            const kids = await res.json()
+        try {
+            const kids = await getApi(`/kids/user/${userId}`)
             setData(kids)
             
-        } else {
+        } catch {
             setIsError(true);
+        } finally {
+            setLoading(false)
         }
         
     }
-
-    // GRAPHQL
-    // const readKids = async (user_id) => { 
-    //     setLoading(true);
-
-    //     try {
-    //         const { data } = await refetch({ userId: user_id });
-    //         setData(data.kids);
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //         setIsError(true);
-    //     }
-
-    //     setLoading(false);
-    // }
 
     return {loading, data, isError, readKids}
 }

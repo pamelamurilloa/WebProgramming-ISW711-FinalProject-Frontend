@@ -1,3 +1,4 @@
+import { deleteApi } from '@src/api'
 import {restUrl} from '@src/constants'
 import {useState} from 'react'
 
@@ -9,23 +10,15 @@ export const useDeleteVideo = () => {
     const deleteVideo = async (playlistId, videoId) => {
         setLoading(true)
 
-        const res = await fetch(
-            restUrl + `/playlists/${playlistId}/${videoId}`, 
-            {
-                method: 'DELETE'
-            }
-        )
-
-        setLoading(false)
-    
-        if (res.status === 200) {
-            const videoDeleted = await res.json()
+        try {
+            const videoDeleted = await deleteApi(`/playlists/${playlistId}/${videoId}`)
             setData(videoDeleted)
             
-        } else {
+        } catch {
             setIsError(true);
-        }
-        
+        } finally {
+            setLoading(false)
+        }        
     }
 
     return {loading, data, isError, deleteVideo}
